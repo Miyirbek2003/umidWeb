@@ -335,20 +335,37 @@ ol {
   bottom: 0;
   top: 0;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 5;
+  z-index: 30;
   display: flex;
   align-items: center;
   justify-content: center;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+  padding-top: 7px;
   justify-content: center;
+
+}
+
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0 !important;
 }
 
 .modal-inner {
   max-width: 35%;
   width: 100%;
   background-color: white;
-  margin: 0 auto;
+  margin: 0 0;
   border-radius: 10px;
 }
 
@@ -358,13 +375,14 @@ ol {
 }
 
 .modal-title h3 {
-  font-size: 35px;
+  font-size: 25px;
   text-align: center;
   font-weight: 600;
 }
 
 .modal-title p {
   text-align: center;
+  margin: 0 !important;
 }
 
 .reded {
@@ -378,6 +396,17 @@ ol {
   flex-direction: column;
   padding: 15px;
   gap: 25px;
+}
+
+.modal .order2 {
+  padding: 15px;
+  font-size: 17px;
+}
+
+.modal form {
+  gap: 15px;
+  padding: 15px 10px;
+
 }
 
 .modal form div,
@@ -926,10 +955,18 @@ footer {
     align-items: center;
     height: 90px;
   }
-  .nav-links.active{
+
+  .nav-links.active {
     display: block !important;
   }
 }
+
+@media screen and (max-width:700px) {
+  .modal-inner {
+    max-width: 60%;
+  }
+}
+
 
 @media screen and (max-width:580px) {
   .works-cards {
@@ -941,7 +978,20 @@ footer {
   }
 }
 
+.modal-title {
+  margin: 0 !important;
+}
+
 @media screen and (max-width:500px) {
+  .modal-inner {
+    max-width: 80%;
+
+  }
+
+  .modal-title {
+    padding: 15px;
+  }
+
   .right {
     max-width: 100%;
   }
@@ -959,6 +1009,7 @@ footer {
     font-size: 35px;
   }
 }
+
 
 #nav-icon4 span:nth-child(1) {
   top: 0px;
