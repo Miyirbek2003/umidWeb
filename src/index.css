@@ -985,7 +985,16 @@ footer {
 @media screen and (max-width:500px) {
   .modal-inner {
     max-width: 80%;
+  }
 
+  .modal {
+    align-items: center;
+    padding: 0;
+  }
+
+  .exit {
+    right: -27px;
+    top: -14px;
   }
 
   .modal-title {

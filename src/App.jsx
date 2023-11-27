@@ -789,23 +789,15 @@ export default function App() {
         </section>
         <footer className="contact" id="contact">
           <div className="container">
-            <div
-              className="yanmap"
-              style={{
-                width: "100%",
-                position: "relative",
-                overflow: "hidden",
-              }}
-            >
-              <iframe
-                src="https://yandex.uz/map-widget/v1/?display-text=umid%20medical%20centre&ll=64.554324%2C39.724202&mode=search&oid=113018405755&ol=biz&sctx=ZAAAAAgBEAAaKAoSCTQtsTIaz01AEVKeeTnsOkVAEhIJTl5kAn6N3z8R6NhBJa5jyj8iBgABAgMEBSgKOABA4VBIAWoCdXqdAc3MTD2gAQCoAQC9AUbegRrCAQX%2BlKbxPeoBAPIBAPgBAIICE3VtaWQgbWVkaWNhbCBjZW50cmWKAgCSAgCaAgxkZXNrdG9wLW1hcHM%3D&sll=64.554324%2C39.724202&sspn=0.099421%2C0.043358&text=umid%20medical%20centre&z=14.31"
-                width="560"
-                height="400"
-                frameBorder="1"
-                allowFullScreen={true}
-                style={{ position: "relative" }}
-              ></iframe>
-            </div>
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3068.416826648321!2d64.52638491989174!3d39.73028682154896!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f501b54c2ea0bbd%3A0xd0c70ed47f14e1f3!2sUmid%20Medical%20Centre!5e0!3m2!1suz!2s!4v1701104681182!5m2!1suz!2s"
+              width="100%"
+              height="400px"
+              style={{ border: "none" }}
+              allowFullScreen=""
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            ></iframe>
 
             <div className="contacts">
               <div className="left">
