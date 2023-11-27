@@ -35,6 +35,7 @@ import {
 } from "@coreui/react";
 import LightGallery from "lightgallery/react";
 export default function App() {
+  
   const progressCircle = React.useRef(null);
   const progressContent = React.useRef(null);
   const onAutoplayTimeLeft = (s, time, progress) => {
