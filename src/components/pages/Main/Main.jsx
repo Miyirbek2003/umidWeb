@@ -466,18 +466,18 @@ export default function Main() {
                   <div className="content">
                     <h4>
                       {
-                        item.translations.filter(
+                        item?.translations?.filter(
                           (lg) =>
                             lg.locale == localStorage.getItem("i18nextLng")
-                        )[0].name
+                        )[0]?.name
                       }
                     </h4>
                     <p>
                       {
-                        item.translations.filter(
+                        item?.translations.filter(
                           (lg) =>
                             lg.locale == localStorage.getItem("i18nextLng")
-                        )[0].job
+                        )[0]?.job
                       }
                     </p>
                   </div>
@@ -568,19 +568,19 @@ export default function Main() {
                   <div className="content">
                     <h4>
                       {
-                        item.translations.filter(
+                        item?.translations.filter(
                           (lg) =>
                             lg.locale == localStorage.getItem("i18nextLng")
-                        )[0].title
+                        )[0]?.title
                       }
                     </h4>
                     <p>Клиент</p>
                     <p className="texxt">
                       {
-                        item.translations.filter(
+                        item?.translations.filter(
                           (lg) =>
                             lg.locale == localStorage.getItem("i18nextLng")
-                        )[0].description
+                        )[0]?.description
                       }
                     </p>
                   </div>
