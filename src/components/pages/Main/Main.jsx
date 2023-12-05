@@ -48,7 +48,7 @@ import Loader from "../../Loader/Loader";
 
 export default function Main() {
   const { t, i18n } = useTranslation();
-  localStorage.setItem("i18nextLng", "uz");
+  
 
   const dispatch = useDispatch();
 
@@ -218,10 +218,20 @@ export default function Main() {
                   )}
                 </div>
                 <ul className="drop-ul">
-                  <li onClick={() => i18n.changeLanguage("uz")}>
+                  <li
+                    onClick={() => {
+                      i18n.changeLanguage("uz"),
+                        localStorage.setItem("i18nextLng", "uz");
+                    }}
+                  >
                     <span>O'zb</span> <img src={uzb} alt="" />
                   </li>
-                  <li onClick={() => i18n.changeLanguage("ru")}>
+                  <li
+                    onClick={() => {
+                      localStorage.setItem("i18nextLng", "ru");
+                      i18n.changeLanguage("ru");
+                    }}
+                  >
                     <span>Рус</span> <img src={rus} alt="" />
                   </li>
                 </ul>
