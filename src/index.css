@@ -48,6 +48,10 @@ img {
 header {
   background-color: #E6F6F3;
   padding: 15px 0;
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 7;
 }
 
 .header-inner {
@@ -286,7 +290,7 @@ main>.main {
 .service-card li {
   list-style-type: circle;
   color: #2196f3;
-
+  margin-left: 15px;
   line-height: 140%;
   text-align: left;
   font-weight: 400;
@@ -315,6 +319,7 @@ main>.main {
   align-self: center;
   width: 100%;
   max-width: 100%;
+  margin-top: 20px;
 }
 
 
@@ -365,7 +370,7 @@ h6 {
   max-width: 35%;
   width: 100%;
   background-color: white;
-  margin: 0 0;
+  margin: auto;
   border-radius: 10px;
 }
 
@@ -739,6 +744,54 @@ main>.goal {
   width: 100%;
 }
 
+.drop img {
+  max-width: 40px;
+  width: 100%;
+}
+
+.drop {
+
+  padding: 5px !important;
+  margin-left: auto;
+  position: relative;
+
+  cursor: pointer;
+}
+
+.drop-ul {
+  display: none !important;
+  position: absolute;
+  left: 0;
+  top: 100%;
+  padding: 0;
+  margin: 0;
+  background-color: #E6F6F3;
+  width: 100%
+}
+
+.drop:hover .drop-ul {
+  display: block !important;
+}
+
+.drop-ul li {
+  padding: 7px;
+  width: auto;
+  font-size: 15px;
+  width: 100%;
+}
+
+.drop-ul li img {
+  max-width: 25px;
+}
+
+.drop li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+
 .contacts {
   display: flex;
   justify-content: space-between;
@@ -1106,4 +1159,83 @@ footer {
   -moz-transition: .25s ease-in-out;
   -o-transition: .25s ease-in-out;
   transition: .25s ease-in-out;
+}
+
+
+.page_about {
+  padding-top: 0;
+  justify-content: center;
+  display: flex;
+  height: 100%;
+  padding-bottom: 0;
+}
+
+.page_about header {
+  text-align: center;
+}
+
+.page_about main {
+  flex: 4;
+}
+
+.side-bar {
+  z-index: 1001;
+  background-color: #2193b0;
+  flex: 1;
+  position: sticky;
+  left: 0;
+  bottom: 0;
+  top: 0;
+  width: 20%;
+  height: 100%;
+  color: white;
+  font-size: 18px;
+
+}
+
+.side-bar li {
+  padding: 10px !important;
+  cursor: pointer;
+}
+
+
+.side-bar li>svg {
+
+  color: white;
+}
+
+.side-bar li svg polygon {
+  fill: white;
+}
+
+.side-bar>ul {
+  padding: 15px !important;
+}
+
+.side-bar>ul>li>ul {
+  padding-left: 15px !important;
+}
+
+html,
+body {
+  height: -webkit-fill-available;
+}
+
+.main_ul li>ul {
+  display: none;
+}
+
+.main_ul li.active>ul {
+  display: block;
+}
+
+
+.nav-link.active{
+  background-color: #2196f3 !important;
+}
+tbody, td, tfoot, th, thead, tr{
+  border-width: 1px !important;
+}
+.table table{
+  width: 100%;
 }

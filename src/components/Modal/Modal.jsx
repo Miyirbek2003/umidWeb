@@ -1,5 +1,26 @@
+import axios from "axios";
+import React from "react";
+import { useTranslation } from "react-i18next";
 import umid from "../../assets/img/ser2.jpg";
-export default function Modal({ setIsModal }) {
+export default function Modal({ setIsModal, treatment_id }) {
+  const [name, setName] = React.useState("");
+  const [phone, setPhone] = React.useState("");
+  const { t } = useTranslation();
+  async function onPost(e) {
+    e.preventDefault();
+
+    if (name && phone && treatment_id) {
+      const btn = document.querySelector("#submitbtn");
+      btn.disabled = true;
+      const response = await axios.post("http://127.0.0.1:8000/api/order", {
+        name: name,
+        phone: phone,
+        treatment_id: treatment_id,
+      });
+      setIsModal(false);
+    }
+  }
+
   return (
     <div className="modal" onClick={() => setIsModal(false)}>
       <div className="modal-inner" onClick={(e) => e.stopPropagation()}>
@@ -10,30 +31,45 @@ export default function Modal({ setIsModal }) {
           <img src={umid} alt="" />
         </div>
         <div className="modal-title">
-          <h3>Записаться на прием</h3>
-          <p>Введите данные для заказа обратного звонка</p>
-          <form>
+          <h3>{t("order2")}</h3>
+          <p>{t("info")}</p>
+          <form onSubmit={onPost}>
             <div>
               <span>
                 {" "}
-                <span className="reded">*</span> Имя
+                <span className="reded">*</span> {t("name")}
               </span>
-              <input type="text" />
+              <input
+                onChange={(e) => {
+                  setName(e.target.value);
+                }}
+                name="name"
+                type="text"
+                required
+              />
             </div>
             <div>
               <span>
-                <span className="reded">*</span> Телефон
+                <span className="reded">*</span> {t("tel")}
               </span>
-              <input type="number" />
+              <input
+                name="phone"
+                onChange={(e) => {
+                  setPhone(e.target.value);
+                }}
+                type="number"
+                required
+              />
             </div>
             <div className="check">
-              <input type="checkbox" name="agree" id="agree" />
+              <input type="checkbox" name="agree" id="agree" required />
               <label htmlFor="agree">
-                <span className="reded">*</span> Я согласен на обработку моих
-                персональных данных
+                <span className="reded">*</span> {t("agree")}
               </label>
             </div>
-            <button className="order2">Отправить</button>
+            <button type="submit" id="submitbtn" className="order2">
+              {t("send")}
+            </button>
           </form>
         </div>
       </div>

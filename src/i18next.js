@@ -1,0 +1,125 @@
+import i18n from 'i18next';
+import { initReactI18next } from "react-i18next";
+import LanguageDetector from 'i18next-browser-languagedetector'
+import Backend from 'i18next-http-backend'
+i18n
+    .use(Backend)
+    .use(LanguageDetector)
+    .use(initReactI18next)
+    .init({
+        resources: {
+            ru: {
+                translation: {
+                    'home': 'Главная',
+                    'stom': 'Стомотология',
+                    'service': 'Услуги',
+                    'servicetitle': 'Широкий профиль услуг',
+                    'servicedesc': 'Предлагаем Вашему вниманию наши услуги',
+                    'workerstitle': 'Наши сотрудники',
+                    'workersdesc': "Ниже представлены наши сотрудники",
+                    'projectsstitle': 'Наши работы',
+                    'projectsdesc': "Ниже представлены фотографии поциентов До и После",
+                    'sertificatetitle': 'Сертификаты',
+                    'sertificatedesc': "Наша компания имеет большой опыть",
+                    'about': 'О компаний',
+                    'adventage': 'Преимущества',
+                    'workers': 'Сотрудники',
+                    'feed': 'Отзывы',
+                    'feedtitle': 'Отзывы наших клиентов',
+                    'projects': 'Работы',
+                    'sertificate': 'Сертификаты',
+                    'faq': 'FAQ',
+                    'faqtitle': 'Часто задаваемые вопросы',
+                    'order3': "Задайте свой вопрос",
+                    'contact': 'Контакты',
+                    'aboutTitle': "Приходите на прием",
+                    'aboutp': 'Добро пожаловать в мир заботы о вашей улыбке, где стоматология становится искусством, а каждая посещение нашей клиники – шагом к идеальному здоровью вашего устного полотна. Мы верим, что красивая улыбка – это не просто результат профессиональной работы, но и отражение заботы о вашем общем благополучии. Наши стоматологи – это не просто врачи, но и настоящие художники, создающие шедевры в мире стоматологии. Мы стремимся к совершенству в каждом случае, предоставляя индивидуальный подход к каждому пациенту. Мы понимаем, что улыбка – это ваша визитная карточка, и наша миссия – сделать ее яркой, здоровой и привлекательной. Выбрав нас, вы выбираете заботу о своем здоровье, качество и профессионализм. Мы приглашаем вас стать частью нашей стоматологической семьи, где каждый посетитель – это уникальная история успеха. Доверьте свою улыбку профессионалам – мы создаем не просто слайдер, мы создаем историю красивых улыбок, начиная с вашей! Присоединяйтесь к нам и дарите миру свою самую яркую улыбку!',
+                    'order': 'Заказать звонок',
+                    'order2': 'Записаться на прием',
+                    'address': 'г.Нукус Жолмурза Аймурзаев',
+                    'address2': 'б/н, MixMarket',
+                    'addressTitle': 'Где мы находимся?',
+                    'swm': 'сум',
+                    'clients': 'Cчастливых клиентов',
+                    'soon': 'Свяжемся с вами в ближайшее время',
+                    'soon2': 'Вы можете связаться с нами любым удобным способом или заказать звонок',
+                    'agree': "Я согласен на обработку моих персональных данных",
+                    'info': 'Введите данные для заказа обратного звонка',
+                    'name': "Имя",
+                    'tel': "Телефон",
+                    'do': "До",
+                    'posle': "После",
+                    'send': "Отправить",
+                    'consult': 'Консультант',
+                    'faqtit1': "Обязательно ли пользоваться нитью для чистки зубов?",
+                    'faqtit2': "Что делать, если произошла травма зуба?",
+                    'faqtit3': "Сколько зубов можно удалить одновременно?",
+                    'faqtit4': "Можно ли отбелить зубной протез или коронку?",
+                    'faqdesc1': "При чистке зубной нитью вы удаляете зубной налет и частички пищи в таких участках полости рта, куда зубной щетке не добраться между зубами и под пришеечной частью десны и между зубами",
+                    'faqdesc2': "Видов травм бывает много, даже в случае сломанного зуба встает вопрос, какая часть была сломана: коронковая часть или корень. Мог произойти не перелом, а подвывих. Или, может быть, вас беспокоит подвижность зуба. В любом случае надо прийти на прием к лучшим стоматологам нашей клиники",
+                    'faqdesc3': "Однозначного ответа на этот вопрос дать, к сожалению, нельзя – все зависит от ситуации: Чаще всего, разумеется, за один раз удаляется только один зуб. В некоторых стоматологиях больше одного зуба вам не удалят никогда",
+                    'faqdesc4': "Сегодня не существует технологии, позволяющей отбелить коронку или протез из любого материала. Это обусловлено самой структурой искусственных конструкций, которая отличается от структуры живой эмали. Поэтому перед тем, как подбирать цвет коронок, следует отбелить свои зубы, и затем уже изготавливать коронки под цвет отбеленных зубов",
+                }
+            },
+            uz: {
+                translation: {
+                    'home': 'Asosiy',
+                    'do': "Oldin",
+                    'posle': "Keyin",
+                    'about': 'Kompaniya haqida',
+                    'stom': 'Stomologiya',
+                    'servicetitle': 'Xizmatlarning keng doirasi',
+                    'servicedesc': "Xizmatlarimizni e'tiboringizga havola qilamiz",
+                    'workerstitle': 'Bizning stomotologlarimiz',
+                    'workersdesc': "Bizning stomotologlarimiz bilan tanishing",
+                    'projectsstitle': 'Bizning ishlarimiz',
+                    'projectsdesc': "Bizning bemorlarimizning rasmlari",
+                    'sertificatetitle': 'Sertifikatlar',
+                    'sertificatedesc': "Bizning kompaniya katta tajribaga ega",
+                    'service': 'Xizmatlar',
+                    'adventage': 'Ustunliklar',
+                    'workers': 'Stomatologlar',
+                    'feed': 'Sharhlar',
+                    'feedtitle': 'Mijozlarimiz sharhlari',
+                    'projects': 'Ishlarimiz',
+                    'sertificate': 'Sertifikatlar',
+                    'faq': 'FAQ',
+                    'faqtitle': 'Tez-tez beriladigan savollar',
+                    'order3': "O'z savolingizni bering",
+                    'clients': 'Baxtli mijozlar',
+                    'contact': 'Kontaktlar',
+                    'aboutTitle': "Qabulga keling",
+                    'aboutp': "Sizning tabassumingizga g'amxo'rlik qilish dunyosiga xush kelibsiz, bu erda stomatologiya san'atga aylanadi va klinikamizga har bir tashrif og'iz bo'shlig'ingiz to'qimalarining ideal salomatligiga qadamdir. Biz ishonamizki, chiroyli tabassum nafaqat professional ishning natijasi, balki sizning umumiy farovonligingiz uchun g'amxo'rlikning aksidir. Bizning stomatologlarimiz nafaqat shifokorlar, balki stomatologiya olamida durdona asarlar yaratadigan haqiqiy rassomlardir. Biz har bir bemorga individual yondashuvni ta'minlab, har bir holatda mukammallikka intilamiz. Sizning tabassumingiz sizning tashrif kartangiz ekanligini tushunamiz va bizning vazifamiz uni yorqin, sog'lom va jozibali qilishdir. Bizni tanlash orqali siz o'z salomatligingiz, sifatingiz va professionalligingiz uchun g'amxo'rlikni tanlaysiz. Biz sizni stomatologik oilamizning bir qismi bo'lishga taklif qilamiz, bu erda har bir tashrif buyuruvchi noyob muvaffaqiyat tarixidir. O'z tabassumingizni professionallarga ishoning - biz shunchaki slayderni emas, siznikidan boshlab chiroyli tabassumlar tarixini yaratamiz! Bizga qo'shiling va dunyoga eng yorqin tabassumingizni bering!",
+                    'order': "Qo'ng'iroqni talab qiling",
+                    'order2': 'Qabulga yozilish',
+                    'address': 'г.Нукус Жолмурза Аймурзаев',
+                    'address2': 'б/н, MixMarket',
+                    'addressTitle': 'Где мы находимся?',
+                    'swm': 'сум',
+                    'soon': "Yaqin orada siz bilan bog'lanamiz",
+                    'soon2': "Biz bilan siz xoxlagan holda bog'lanishingiz mumkin",
+                    'agree': "Men shaxsiy ma'lumotlarimni qayta ishlashga roziman",
+                    'info': "Qayta qo'ng'iroq uchun ma'lumotlarni to'ldiring",
+                    'name': "Ism",
+                    'tel': "Telefon",
+                    'send': "Yuborish",
+                    'consult': 'Kunsultant',
+                    'faqtit1': "Tishlaringizni cho'tkalash uchun ip kerakmi?",
+                    'faqtit2': "Agar tish shikastlansa nima qilish kerak?",
+                    'faqtit3': "Bir vaqtning o'zida nechta tishni olib tashlash mumkin?",
+                    'faqtit4': "Protez yoki tojni oqartirish mumkinmi?",
+                    'faqdesc1': "Ipni ishlatganda, siz tish cho'tkasi tishlar orasiga, tish go'shtining bo'yin qismi ostiga va tishlar orasiga etib bora olmaydigan og'iz bo'shlig'idagi blyashka va oziq-ovqat zarralarini olib tashlaysiz.",
+                    'faqdesc2': "Jarohatlarning ko'p turlari mavjud, hatto tish singan taqdirda ham, qaysi qism buzilganligi haqida savol tug'iladi: toj qismi yoki ildizi. Nima bo'lishi mumkin edi, bu sinish emas, balki subluksatsiya edi. Yoki siz tishlarning harakatchanligi haqida qayg'urasiz. Qanday bo'lmasin, siz bizning klinikamizdagi eng yaxshi stomatologlar bilan uchrashuvga kelishingiz kerak.",
+                    'faqdesc3': "Afsuski, bu savolga aniq javob berishning iloji yo'q - barchasi vaziyatga bog'liq: Ko'pincha, albatta, bir vaqtning o'zida faqat bitta tish chiqariladi. Ba'zi stomatologlar hech qachon bir nechta tishni olib tashlamaydilar.",
+                    'faqdesc4': "Bugungi kunda har qanday materialdan tayyorlangan toj yoki protezni oqartirishga imkon beradigan texnologiya yo'q. Bu tirik emalning tuzilishidan farq qiladigan sun'iy tuzilmalarning tuzilishi bilan bog'liq. Shuning uchun, tojlarning rangini tanlashdan oldin, siz tishlaringizni oqartirishingiz kerak, keyin esa oqartirilgan tishlarning rangiga mos keladigan tojlar yasashingiz kerak.",
+
+
+                }
+            },
+
+        },
+        interpolation: {
+            escapeValue: false, // not needed for react as it escapes by default
+        }
+    })
+export default i18n

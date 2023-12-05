@@ -1,7 +1,8 @@
 import "swiper/css/free-mode";
 import bad from "../../../assets/img/bad.jpg";
 import "lightgallery/css/lightgallery.css";
-
+import uzb from "../../../assets/img/uzb.svg";
+import rus from "../../../assets/img/rus.svg";
 import sertificate from "../../../assets/img/sertificate.png";
 import {
   ReactCompareSlider,
@@ -33,7 +34,41 @@ import {
   CAccordionItem,
 } from "@coreui/react";
 import LightGallery from "lightgallery/react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getCategory,
+  getFeedback,
+  getImageSlide,
+  getSlides,
+  getTypeCategory,
+  getWorkers,
+} from "../../../store/AllSlice";
+import { useTranslation } from "react-i18next";
+import Loader from "../../Loader/Loader";
+
 export default function Main() {
+  const { t, i18n } = useTranslation();
+
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    dispatch(getSlides());
+    dispatch(getWorkers());
+    dispatch(getCategory());
+    dispatch(getTypeCategory());
+    dispatch(getFeedback());
+    dispatch(getImageSlide());
+  }, []);
+  const {
+    slides,
+    feedback,
+    imageslide,
+    workers,
+    category,
+    typeCategory,
+    loading,
+  } = useSelector((state) => state.AllSlice);
+
   const progressCircle = React.useRef(null);
   const progressContent = React.useRef(null);
   const onAutoplayTimeLeft = (s, time, progress) => {
@@ -56,10 +91,21 @@ export default function Main() {
     document.querySelector("#nav-icon4").classList.remove("open");
   }
   const [isOpen, setIsopen] = React.useState(false);
+  const [treatment_id, setTreatment_id] = React.useState("");
   const navigate = useNavigate();
+
+  if (loading) {
+    return <Loader />;
+  }
   return (
     <>
-      {isModal && <Modal setIsModal={setIsModal} />}
+      {isModal && (
+        <Modal
+          treatment_id={treatment_id}
+          setTreatment_id={setTreatment_id}
+          setIsModal={setIsModal}
+        />
+      )}
       <header id="header">
         <div className="container">
           <div className="header-inner">
@@ -67,7 +113,7 @@ export default function Main() {
               <img src={logo} alt="" />
               <div>
                 <h1>Umid Medical Centre</h1>
-                <p>Стомотология</p>
+                <p>{t("stom")}</p>
               </div>
             </div>
             <ul className="nav-links">
@@ -78,7 +124,7 @@ export default function Main() {
                 }}
               >
                 {" "}
-                Главная
+                {t("home")}
               </li>
 
               <li
@@ -87,7 +133,7 @@ export default function Main() {
                   scrollId(e.target, "services");
                 }}
               >
-                Услуги
+                {t("service")}
               </li>
 
               <li
@@ -96,7 +142,7 @@ export default function Main() {
                   scrollId(e.target, "goal");
                 }}
               >
-                Преимущества
+                {t("adventage")}
               </li>
 
               <li
@@ -105,7 +151,7 @@ export default function Main() {
                   scrollId(e.target, "info");
                 }}
               >
-                О компании
+                {t("about")}
               </li>
 
               <li
@@ -114,7 +160,7 @@ export default function Main() {
                   scrollId(e.target, "workers");
                 }}
               >
-                Сотрудники
+                {t("workers")}
               </li>
 
               <li
@@ -123,7 +169,7 @@ export default function Main() {
                   scrollId(e.target, "faq");
                 }}
               >
-                FAQ
+                {t("faq")}
               </li>
 
               <li
@@ -132,7 +178,7 @@ export default function Main() {
                   scrollId(e.target, "feedbacks");
                 }}
               >
-                Отзывы
+                {t("feed")}
               </li>
               <li
                 className="item-link projects"
@@ -140,7 +186,7 @@ export default function Main() {
                   scrollId(e.target, "projects");
                 }}
               >
-                Работы
+                {t("projects")}
               </li>
               <li
                 className="item-link gallery"
@@ -148,7 +194,7 @@ export default function Main() {
                   scrollId(e.target, "gallery");
                 }}
               >
-                Сертификаты
+                {t("sertificate")}
               </li>
               <li
                 className="item-link contact"
@@ -156,10 +202,37 @@ export default function Main() {
                   scrollId(e.target, "contact");
                 }}
               >
-                Контакты
+                {t("contact")}
+              </li>
+              <li className="item-link drop">
+                <div className="active-lang">
+                  {localStorage.getItem("i18nextLng") == "uz" ? (
+                    <>
+                      <span>O'zb</span> <img src={uzb} alt="" />
+                    </>
+                  ) : (
+                    <>
+                      <span>Рус</span> <img src={rus} alt="" />
+                    </>
+                  )}
+                </div>
+                <ul className="drop-ul">
+                  <li onClick={() => i18n.changeLanguage("uz")}>
+                    <span>O'zb</span> <img src={uzb} alt="" />
+                  </li>
+                  <li onClick={() => i18n.changeLanguage("ru")}>
+                    <span>Рус</span> <img src={rus} alt="" />
+                  </li>
+                </ul>
               </li>
             </ul>
-            <div id="nav-icon4">
+            <div
+              id="nav-icon4"
+              onClick={(e) => {
+                $("#nav-icon4").toggleClass("open");
+                $(".nav-links").toggleClass("active");
+              }}
+            >
               <span></span>
               <span></span>
               <span></span>
@@ -173,12 +246,12 @@ export default function Main() {
             <img src={logo} alt="" />
             <div>
               <h1>Umid Medical Centre</h1>
-              <p>Стомотология</p>
+              <p>{t("stom")}</p>
             </div>
           </div>
           <div className="header-contact">
             <span>+998 95 604 00 60</span>
-            <button className="order">Заказать звонок</button>
+            <button className="order">{t("order")}</button>
           </div>
         </div>
       </div>
@@ -200,22 +273,30 @@ export default function Main() {
             onAutoplayTimeLeft={onAutoplayTimeLeft}
             className="mySwiper"
           >
-            <SwiperSlide
-              className="main-inner"
-              style={{ backgroundImage: `url(${bg})` }}
-            >
-              <h3>Umid Medical Centre</h3>
-              <p>Ваша Улыбка – Наше Вдохновение!</p>
-            </SwiperSlide>
-            <SwiperSlide style={{ backgroundImage: `url(${ser2})` }}>
-              <h3>Счастливые часы в воскресенье с 9:00 - 21:00</h3>
-              <p>
-                Скидка 20% на терапевтическое лечение зубов. Период действия
-                акции "Счастливые часы"ограничено
-              </p>
-              <button className="order2">Записаться на прием</button>
-            </SwiperSlide>
-            <SwiperSlide>Slide 3</SwiperSlide>
+            {slides?.map((item) => (
+              <SwiperSlide
+                key={item.id}
+                className="main-inner"
+                style={{
+                  backgroundImage: `url(http://127.0.0.1:8000/images/${item.image})`,
+                }}
+              >
+                <h3>
+                  {
+                    item.translations.filter(
+                      (lg) => lg.locale == localStorage.getItem("i18nextLng")
+                    )[0].title
+                  }
+                </h3>
+                <p>
+                  {
+                    item.translations.filter(
+                      (lg) => lg.locale == localStorage.getItem("i18nextLng")
+                    )[0].description
+                  }
+                </p>
+              </SwiperSlide>
+            ))}
 
             <div className="autoplay-progress" slot="container-end">
               <svg viewBox="0 0 48 48" ref={progressCircle}>
@@ -228,116 +309,69 @@ export default function Main() {
         <section className="services" id="services">
           <div className="container">
             <div className="section-title">
-              <h3>Широкий профиль услуг</h3>
-              <p>Предлагаем Вашему вниманию наши услуги</p>
+              <h3>{t("servicetitle")}</h3>
+              <p>{t("servicedesc")}</p>
             </div>
             <div className="service-cards">
-              <div className="service-card" data-aos="fade-up">
-                <div className="img">
-                  <img src={ser1} alt="" />
+              {category?.map((item) => (
+                <div key={item.id} className="service-card" data-aos="fade-up">
+                  <div className="img">
+                    <img
+                      src={`http://127.0.0.1:8000/images/${item.image}`}
+                      alt=""
+                    />
+                  </div>
+                  <div className="service-inner">
+                    <h4>
+                      {
+                        item.translations.filter(
+                          (lg) =>
+                            lg.locale == localStorage.getItem("i18nextLng")
+                        )[0].title
+                      }
+                    </h4>
+                    <ul>
+                      {typeCategory?.map(
+                        (typee) =>
+                          typee.treatment_id == item.id && (
+                            <li
+                              key={typee.id}
+                              onClick={() =>
+                                navigate(
+                                  `/about/${
+                                    typee.translations.filter(
+                                      (lg) =>
+                                        lg.locale ==
+                                        localStorage.getItem("i18nextLng")
+                                    )[0].slug
+                                  }`
+                                )
+                              }
+                            >
+                              {
+                                typee.translations.filter(
+                                  (lg) =>
+                                    lg.locale ==
+                                    localStorage.getItem("i18nextLng")
+                                )[0].title
+                              }
+
+                              <FcNext size={15} />
+                            </li>
+                          )
+                      )}
+                    </ul>
+                    <button
+                      className="order2"
+                      onClick={() => {
+                        setTreatment_id(item.id), setIsModal(true);
+                      }}
+                    >
+                      {t("order2")}
+                    </button>
+                  </div>
                 </div>
-                <div className="service-inner">
-                  <h4>Лечение кариеса</h4>
-                  <ul>
-                    <li onClick={() => navigate("/about")}>
-                      Кариес начальный <FcNext size={15} />
-                    </li>
-                    <li onClick={() => navigate("/about")}>
-                      Кариес поверхностный <FcNext size={15} />
-                    </li>
-                    <li onClick={() => navigate("/about")}>
-                      Кариес средний
-                      <FcNext size={15} />
-                    </li>
-                    <li onClick={() => navigate("/about")}>
-                      Кариес глубокий <FcNext size={15} />
-                    </li>
-                  </ul>
-                  <div className="price">от 799 000 сум</div>
-                  <button className="order2" onClick={() => setIsModal(true)}>
-                    Записаться
-                  </button>
-                </div>
-              </div>
-              <div className="service-card" data-aos="fade-up">
-                <div className="img">
-                  <img src={ser1} alt="" />
-                </div>
-                <div className="service-inner">
-                  <h4>Лечение кариеса</h4>
-                  <ul>
-                    <li>
-                      Кариес начальный <FcNext size={15} />
-                    </li>
-                    <li>
-                      Кариес поверхностный <FcNext size={15} />
-                    </li>
-                    <li>
-                      Кариес средний <FcNext size={15} />
-                    </li>
-                    <li>
-                      Кариес глубокий <FcNext size={15} />
-                    </li>
-                  </ul>
-                  <div className="price">от 799 000 сум</div>
-                  <button className="order2" onClick={() => setIsModal(true)}>
-                    Записаться
-                  </button>
-                </div>
-              </div>
-              <div className="service-card" data-aos="fade-up">
-                <div className="img">
-                  <img src={ser2} alt="" />
-                </div>
-                <div className="service-inner">
-                  <h4>Лечение кариеса</h4>
-                  <ul>
-                    <li>
-                      Кариес начальный <FcNext size={15} />
-                    </li>
-                    <li>
-                      Кариес поверхностный
-                      <FcNext size={15} />
-                    </li>
-                    <li>
-                      Кариес средний <FcNext size={15} />
-                    </li>
-                    <li>
-                      Кариес глубокий <FcNext size={15} />
-                    </li>
-                  </ul>
-                  <div className="price">от 799 000 сум</div>
-                  <button className="order2" onClick={() => setIsModal(true)}>
-                    Записаться
-                  </button>
-                </div>
-              </div>
-              <div className="service-card" data-aos="fade-up">
-                <div className="img">
-                  <img src={ser3} alt="" />
-                </div>
-                <div className="service-inner">
-                  <h4>Лечение кариеса</h4>
-                  <ul>
-                    <li>
-                      Кариес начальный <FcNext size={15} />
-                    </li>
-                    <li>
-                      Кариес поверхностный <FcNext size={15} />
-                    </li>
-                    <li>
-                      Кариес средний <FcNext size={15} />
-                    </li>
-                    <li>
-                      Кариес глубокий <FcNext size={15} />
-                    </li>
-                  </ul>
-                  <div className="price">от 799 000 сум</div>
-                  <button className="order2" onClick={() => setIsModal(true)}>
-                    Записаться
-                  </button>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </section>
@@ -348,8 +382,8 @@ export default function Main() {
                 <FaCheck fontSize={30} color="white" />
               </span>
               <div>
-                <h3>Анализ аудитории</h3>
-                <p>Точно определим целевую аудиторию</p>
+                <h3>12 345</h3>
+                <p>{t("clients")}</p>
               </div>
             </div>
             <div data-aos="flip-up">
@@ -375,32 +409,9 @@ export default function Main() {
         <section className="info" id="info">
           <div className="container">
             <div className="info-content">
-              <h2>Приходите на прием</h2>
-              <p>
-                Добро пожаловать в мир заботы о вашей улыбке, где стоматология
-                становится искусством, а каждая посещение нашей клиники – шагом
-                к идеальному здоровью вашего устного полотна. Мы верим, что
-                красивая улыбка – это не просто результат профессиональной
-                работы, но и отражение заботы о вашем общем благополучии.
-                <br /> <br /> Наши стоматологи – это не просто врачи, но и
-                настоящие художники, создающие шедевры в мире стоматологии. Мы
-                стремимся к совершенству в каждом случае, предоставляя
-                индивидуальный подход к каждому пациенту. Мы понимаем, что
-                улыбка – это ваша визитная карточка, и наша миссия – сделать ее
-                яркой, здоровой и привлекательной.
-                <br />
-                <br />
-                Выбрав нас, вы выбираете заботу о своем здоровье, качество и
-                профессионализм. Мы приглашаем вас стать частью нашей
-                стоматологической семьи, где каждый посетитель – это уникальная
-                история успеха. Доверьте свою улыбку профессионалам – мы создаем
-                не просто слайдер, мы создаем историю красивых улыбок, начиная с
-                вашей!
-                <br />
-                <br /> Присоединяйтесь к нам и дарите миру свою самую яркую
-                улыбку!
-              </p>
-              <button className="order2">Записаться на прием</button>
+              <h2>{t("aboutTitle")}</h2>
+              <p>{t("aboutp")}</p>
+              <button className="order2">{t("order")}</button>
             </div>
             <div className="img">
               <img src={ser2} alt="" />
@@ -410,8 +421,8 @@ export default function Main() {
         <section className="workers" id="workers">
           <div className="container">
             <div className="section-title">
-              <h3>Наши Сотрудники</h3>
-              <p>Ниже представлены наши сотрудники</p>
+              <h3>{t("workerstitle")}</h3>
+              <p>{t("workersdesc")}</p>
             </div>
             <Swiper
               data-aos="fade-up"
@@ -444,70 +455,34 @@ export default function Main() {
               modules={[Pagination, Navigation]}
               className="mySwiper"
             >
-              <SwiperSlide>
-                <div className="img">
-                  <img src={dok} alt="" />
-                </div>
-                <div className="content">
-                  <h4>Хусанова Жамила</h4>
-                  <p>Стоматолог</p>
-                </div>
-              </SwiperSlide>
-              <SwiperSlide>
-                <div className="img">
-                  <img src={dok} alt="" />
-                </div>
-                <div className="content">
-                  <h4>Хусанова Жамила</h4>
-                  <p>Стоматолог</p>
-                </div>
-              </SwiperSlide>
-              <SwiperSlide>
-                <div className="img">
-                  <img src={dok} alt="" />
-                </div>
-                <div className="content">
-                  <h4>Хусанова Жамила</h4>
-                  <p>Стоматолог</p>
-                </div>
-              </SwiperSlide>
-              <SwiperSlide>
-                <div className="img">
-                  <img src={dok} alt="" />
-                </div>
-                <div className="content">
-                  <h4>Хусанова Жамила</h4>
-                  <p>Стоматолог</p>
-                </div>
-              </SwiperSlide>
-              <SwiperSlide>
-                <div className="img">
-                  <img src={dok} alt="" />
-                </div>
-                <div className="content">
-                  <h4>Хусанова Жамила</h4>
-                  <p>Стоматолог</p>
-                </div>
-              </SwiperSlide>
-
-              <SwiperSlide>
-                <div className="img">
-                  <img src={dok} alt="" />
-                </div>
-                <div className="content">
-                  <h4>Хусанова Жамила</h4>
-                  <p>Стоматолог</p>
-                </div>
-              </SwiperSlide>
-              <SwiperSlide>
-                <div className="img">
-                  <img src={dok} alt="" />
-                </div>
-                <div className="content">
-                  <h4>Хусанова Жамила</h4>
-                  <p>Стоматолог</p>
-                </div>
-              </SwiperSlide>
+              {workers?.map((item) => (
+                <SwiperSlide key={item.id}>
+                  <div className="img">
+                    <img
+                      src={`http://127.0.0.1:8000/images/${item.image}`}
+                      alt=""
+                    />
+                  </div>
+                  <div className="content">
+                    <h4>
+                      {
+                        item.translations.filter(
+                          (lg) =>
+                            lg.locale == localStorage.getItem("i18nextLng")
+                        )[0].name
+                      }
+                    </h4>
+                    <p>
+                      {
+                        item.translations.filter(
+                          (lg) =>
+                            lg.locale == localStorage.getItem("i18nextLng")
+                        )[0].job
+                      }
+                    </p>
+                  </div>
+                </SwiperSlide>
+              ))}
             </Swiper>
           </div>
         </section>
@@ -515,60 +490,34 @@ export default function Main() {
           <div className="container">
             <div className="accor-inner">
               <div className="section-title">
-                <h3>Часто задаваемые вопросы</h3>
+                <h3>{t("faqtitle")}</h3>
               </div>
               <div className="accr-img">
                 <CAccordion data-aos="fade-up" flush>
                   <CAccordionItem itemKey={1}>
                     <CAccordionHeader>
-                      <span className="nmb"> 01</span> Обязательно ли
-                      пользоваться нитью для чистки зубов?
+                      <span className="nmb"> 01</span>
+                      {t("faqtit1")}
                     </CAccordionHeader>
-                    <CAccordionBody>
-                      При чистке зубной нитью вы удаляете зубной налет и
-                      частички пищи в таких участках полости рта, куда зубной
-                      щетке не добраться между зубами и под пришеечной частью
-                      десны и между зубами
-                    </CAccordionBody>
+                    <CAccordionBody>{t("faqdesc1")}</CAccordionBody>
                   </CAccordionItem>
                   <CAccordionItem itemKey={2}>
                     <CAccordionHeader>
-                      <span className="nmb"> 02</span> Что делать, если
-                      произошла травма зуба?
+                      <span className="nmb"> 02</span> {t("faqtit2")}
                     </CAccordionHeader>
-                    <CAccordionBody>
-                      Видов травм бывает много, даже в случае сломанного зуба
-                      встает вопрос, какая часть была сломана: коронковая часть
-                      или корень. Мог произойти не перелом, а подвывих. Или,
-                      может быть, вас беспокоит подвижность зуба. В любом случае
-                      надо прийти на прием к лучшим стоматологам нашей клиники
-                    </CAccordionBody>
+                    <CAccordionBody>{t("faqdesc2")}</CAccordionBody>
                   </CAccordionItem>
                   <CAccordionItem itemKey={3}>
                     <CAccordionHeader>
-                      <span className="nmb"> 03</span> Сколько зубов можно
-                      удалить одновременно?
+                      <span className="nmb"> 03</span> {t("faqtit3")}
                     </CAccordionHeader>
-                    <CAccordionBody>
-                      Однозначного ответа на этот вопрос дать, к сожалению,
-                      нельзя – все зависит от ситуации: Чаще всего, разумеется,
-                      за один раз удаляется только один зуб. В некоторых
-                      стоматологиях больше одного зуба вам не удалят никогда
-                    </CAccordionBody>
+                    <CAccordionBody>{t("faqdesc3")}</CAccordionBody>
                   </CAccordionItem>
                   <CAccordionItem itemKey={4}>
                     <CAccordionHeader>
-                      <span className="nmb"> 04</span> Можно ли отбелить зубной
-                      протез или коронку?
+                      <span className="nmb"> 04</span> {t("faqtit4")}
                     </CAccordionHeader>
-                    <CAccordionBody>
-                      Сегодня не существует технологии, позволяющей отбелить
-                      коронку или протез из любого материала. Это обусловлено
-                      самой структурой искусственных конструкций, которая
-                      отличается от структуры живой эмали. Поэтому перед тем,
-                      как подбирать цвет коронок, следует отбелить свои зубы, и
-                      затем уже изготавливать коронки под цвет отбеленных зубов
-                    </CAccordionBody>
+                    <CAccordionBody>{t("faqdesc4")}</CAccordionBody>
                   </CAccordionItem>
                 </CAccordion>
                 <div className="consult" data-aos="fade-up">
@@ -576,9 +525,9 @@ export default function Main() {
                     <img src={dok} alt="Doktor" />
                   </div>
                   <div className="con-body">
-                    <p>Консультант</p>
+                    <p>{t("consult")}</p>
                     <h4>Алиева Мария</h4>
-                    <button className="order2">Задать свой вопрос</button>
+                    <button className="order2">{t("order3")}</button>
                   </div>
                 </div>
               </div>
@@ -588,7 +537,7 @@ export default function Main() {
         <section className="feedbacks" data-aos="fade-up" id="feedbacks">
           <div className="container">
             <div className="section-title">
-              <h3>Отзывы наших клиентов</h3>
+              <h3>{t("feedtitle")}</h3>
             </div>
             <Swiper
               slidesPerView={2}
@@ -608,165 +557,82 @@ export default function Main() {
                 },
               }}
             >
-              <SwiperSlide>
-                <div className="img">
-                  <img src={dok} alt="" />
-                </div>
-                <div className="content">
-                  <h4>Хусанова Жамила</h4>
-                  <p>Клиент</p>
-                  <p className="texxt">
-                    Эскиз дизайна совсем не разочаровал, а наоборот, порадовал.
-                    Дизайнер точно и абсолютно правильно почувствовал наши
-                    пожелания.
-                  </p>
-                </div>
-              </SwiperSlide>
-              <SwiperSlide>
-                <div className="img">
-                  <img src={dok} alt="" />
-                </div>
-                <div className="content">
-                  <h4>Хусанова Жамила</h4>
-                  <p>Клиент</p>
-                  <p className="texxt">
-                    Эскиз дизайна совсем не разочаровал, а наоборот, порадовал.
-                    Дизайнер точно и абсолютно правильно почувствовал наши
-                    пожелания.
-                  </p>
-                </div>
-              </SwiperSlide>
-              <SwiperSlide>
-                <div className="img">
-                  <img src={dok} alt="" />
-                </div>
-                <div className="content">
-                  <h4>Хусанова Жамила</h4>
-                  <p>Клиент</p>
-                  <p className="texxt">
-                    Эскиз дизайна совсем не разочаровал, а наоборот, порадовал.
-                    Дизайнер точно и абсолютно правильно почувствовал наши
-                    пожелания.
-                  </p>
-                </div>
-              </SwiperSlide>
-              <SwiperSlide>
-                <div className="img">
-                  <img src={dok} alt="" />
-                </div>
-                <div className="content">
-                  <h4>Хусанова Жамила</h4>
-                  <p>Клиент</p>
-                  <p className="texxt">
-                    Эскиз дизайна совсем не разочаровал, а наоборот, порадовал.
-                    Дизайнер точно и абсолютно правильно почувствовал наши
-                    пожелания.
-                  </p>
-                </div>
-              </SwiperSlide>
-              <SwiperSlide>
-                <div className="img">
-                  <img src={dok} alt="" />
-                </div>
-                <div className="content">
-                  <h4>Хусанова Жамила</h4>
-                  <p>Клиент</p>
-                  <p className="texxt">
-                    Эскиз дизайна совсем не разочаровал, а наоборот, порадовал.
-                    Дизайнер точно и абсолютно правильно почувствовал наши
-                    пожелания.
-                  </p>
-                </div>
-              </SwiperSlide>
-
-              <SwiperSlide>
-                <div className="img">
-                  <img src={dok} alt="" />
-                </div>
-                <div className="content">
-                  <h4>Хусанова Жамила</h4>
-                  <p>Клиент</p>
-                  <p className="texxt">
-                    Эскиз дизайна совсем не разочаровал, а наоборот, порадовал.
-                    Дизайнер точно и абсолютно правильно почувствовал наши
-                    пожелания.
-                  </p>
-                </div>
-              </SwiperSlide>
-              <SwiperSlide>
-                <div className="img">
-                  <img src={dok} alt="" />
-                </div>
-                <div className="content">
-                  <h4>Хусанова Жамила</h4>
-                  <p>Клиент</p>
-                  <p className="texxt">
-                    Эскиз дизайна совсем не разочаровал, а наоборот, порадовал.
-                    Дизайнер точно и абсолютно правильно почувствовал наши
-                    пожелания.
-                  </p>
-                </div>
-              </SwiperSlide>
+              {feedback?.map((item) => (
+                <SwiperSlide key={item.id}>
+                  <div className="img">
+                    <img
+                      src={`http://localhost:8000/images/${item.image}`}
+                      alt=""
+                    />
+                  </div>
+                  <div className="content">
+                    <h4>
+                      {
+                        item.translations.filter(
+                          (lg) =>
+                            lg.locale == localStorage.getItem("i18nextLng")
+                        )[0].title
+                      }
+                    </h4>
+                    <p>Клиент</p>
+                    <p className="texxt">
+                      {
+                        item.translations.filter(
+                          (lg) =>
+                            lg.locale == localStorage.getItem("i18nextLng")
+                        )[0].description
+                      }
+                    </p>
+                  </div>
+                </SwiperSlide>
+              ))}
             </Swiper>
           </div>
         </section>
         <section className="projects workers" data-aos="fade-up" id="projects">
           <div className="container">
             <div className="section-title">
-              <h3>Наши работы</h3>
-              <p>Ниже представлены фоторгафии поциентов До и После</p>
+              <h3>{t("projectsstitle")}</h3>
+              <p>{t("projectsdesc")}</p>
             </div>
             <div className="works-cards">
-              <div className="work">
-                <ReactCompareSlider
-                  boundsPadding={0}
-                  itemOne={
-                    <ReactCompareSliderImage alt="Image one" src={bad} />
-                  }
-                  itemTwo={
-                    <ReactCompareSliderImage alt="Image two" src={good} />
-                  }
-                  keyboardIncrement="5%"
-                  position={50}
-                  style={{
-                    height: "auto",
-                    width: "100%",
-                  }}
-                />
-                <div className="point">
-                  <span>До</span>
-                  <span>После</span>
+              {imageslide?.map((item) => (
+                <div className="work" key={item.id}>
+                  <ReactCompareSlider
+                    boundsPadding={0}
+                    itemOne={
+                      <ReactCompareSliderImage
+                        alt="Image one"
+                        src={`http://localhost:8000/images/${item.do}`}
+                      />
+                    }
+                    itemTwo={
+                      <ReactCompareSliderImage
+                        alt="Image two"
+                        src={`http://localhost:8000/images/${item.posle}`}
+                      />
+                    }
+                    keyboardIncrement="5%"
+                    position={50}
+                    style={{
+                      height: "auto",
+                      width: "100%",
+                    }}
+                  />
+                  <div className="point">
+                    <span>{t("do")}</span>
+                    <span>{t("posle")}</span>
+                  </div>
                 </div>
-              </div>
-              <div className="work">
-                <ReactCompareSlider
-                  boundsPadding={0}
-                  itemOne={
-                    <ReactCompareSliderImage alt="Image one" src={bad} />
-                  }
-                  itemTwo={
-                    <ReactCompareSliderImage alt="Image two" src={good} />
-                  }
-                  keyboardIncrement="5%"
-                  position={50}
-                  style={{
-                    height: "auto",
-                    width: "100%",
-                  }}
-                />
-                <div className="point">
-                  <span>До</span>
-                  <span>После</span>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </section>
         <section className="gallery info" data-aos="fade-up" id="gallery">
           <div className="container">
             <div className="section-title">
-              <h3>Сертификаты</h3>
-              <p>Наша компания имеет большой опыт</p>
+              <h3>{t("sertificatetitle")}</h3>
+              <p>{t("sertificatedesc")}</p>
             </div>
             <div className="sertificates">
               <LightGallery speed={500}>
@@ -801,11 +667,8 @@ export default function Main() {
             <div className="contacts">
               <div className="left">
                 <div className="section-title">
-                  <h3>Контакты</h3>
-                  <p>
-                    Вы можете связаться с нами любым удобным способом или
-                    заказать звонок
-                  </p>
+                  <h3>{t("contact")}</h3>
+                  <p>{t("soon2")}</p>
                 </div>
                 <div className="contact-number">
                   <h4>+998 95 604 00 60</h4>
@@ -817,8 +680,8 @@ export default function Main() {
               </div>
               <div className="right">
                 <div className="modal-title">
-                  <h3>Заказать звонок</h3>
-                  <p>Свяжемся с вами в ближайшее время</p>
+                  <h3>{t("order2")}</h3>
+                  <p>{t("soon")}</p>
                   <form>
                     <div>
                       <span>
