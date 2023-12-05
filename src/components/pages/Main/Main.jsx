@@ -283,16 +283,16 @@ export default function Main() {
               >
                 <h3>
                   {
-                    item.translations.filter(
+                    item?.translations?.filter(
                       (lg) => lg.locale == localStorage.getItem("i18nextLng")
-                    )[0].title
+                    )[0]?.title
                   }
                 </h3>
                 <p>
                   {
-                    item.translations.filter(
+                    item?.translations?.filter(
                       (lg) => lg.locale == localStorage.getItem("i18nextLng")
-                    )[0].description
+                    )[0]?.description
                   }
                 </p>
               </SwiperSlide>
@@ -324,10 +324,10 @@ export default function Main() {
                   <div className="service-inner">
                     <h4>
                       {
-                        item.translations.filter(
+                        item?.translations?.filter(
                           (lg) =>
                             lg.locale == localStorage.getItem("i18nextLng")
-                        )[0].title
+                        )[0]?.title
                       }
                     </h4>
                     <ul>
@@ -339,21 +339,21 @@ export default function Main() {
                               onClick={() =>
                                 navigate(
                                   `/about/${
-                                    typee.translations.filter(
+                                    typee?.translations?.filter(
                                       (lg) =>
                                         lg.locale ==
                                         localStorage.getItem("i18nextLng")
-                                    )[0].slug
+                                    )[0]?.slug
                                   }`
                                 )
                               }
                             >
                               {
-                                typee.translations.filter(
+                                typee?.translations?.filter(
                                   (lg) =>
                                     lg.locale ==
                                     localStorage.getItem("i18nextLng")
-                                )[0].title
+                                )[0]?.title
                               }
 
                               <FcNext size={15} />
