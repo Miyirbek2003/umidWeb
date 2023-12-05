@@ -48,6 +48,7 @@ import Loader from "../../Loader/Loader";
 
 export default function Main() {
   const { t, i18n } = useTranslation();
+  localStorage.setItem("i18nextLng", "uz");
 
   const dispatch = useDispatch();
 
