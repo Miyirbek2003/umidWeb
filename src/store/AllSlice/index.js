@@ -2,22 +2,22 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 export const getSlides = createAsyncThunk('allSlides/getSlides', async (_, { dispatch }) => {
-    const response = await axios.get('http://127.0.0.1:8000/api/slides');
+    const response = await axios.get('https://admin.umidmedicalcentre.uz/api/slides');
     dispatch(setSlides(response.data.items))
 })
 
 export const getWorkers = createAsyncThunk('allSlides/getWorkers', async (_, { dispatch }) => {
-    const response = await axios.get('http://127.0.0.1:8000/api/employee');
+    const response = await axios.get('https://admin.umidmedicalcentre.uz/api/employee');
     dispatch(setWorkers(response.data.items))
 })
 
 export const getCategory = createAsyncThunk('allSlides/getCategory', async (_, { dispatch }) => {
-    const response = await axios.get('http://127.0.0.1:8000/api/treatments');
+    const response = await axios.get('https://admin.umidmedicalcentre.uz/api/treatments');
     dispatch(setCategory(response.data))
 })
 
 export const getTypeCategory = createAsyncThunk('allSlides/getTypeCategory', async (_, { dispatch }) => {
-    const response = await axios.get('http://127.0.0.1:8000/api/typetreatments');
+    const response = await axios.get('https://admin.umidmedicalcentre.uz/api/typetreatments');
 
     dispatch(setTypeCategory(response.data.items))
 })
@@ -27,14 +27,14 @@ export const getTypeCategory = createAsyncThunk('allSlides/getTypeCategory', asy
 
 
 export const getContent = createAsyncThunk('allSlides/getContent', async (slug, { dispatch }) => {
-    const response = await axios.get(`http://127.0.0.1:8000/api/typetreatments/${slug}`);
+    const response = await axios.get(`https://admin.umidmedicalcentre.uz/api/typetreatments/${slug}`);
 
     dispatch(setContent(response.data.item))
 })
 
 
 export const getFeedback = createAsyncThunk('allSlides/getFeedback', async (_, { dispatch }) => {
-    const response = await axios.get('http://127.0.0.1:8000/api/feedback');
+    const response = await axios.get('https://admin.umidmedicalcentre.uz/api/feedback');
 
     dispatch(setFeedback(response.data.items))
 })
@@ -43,8 +43,8 @@ export const getFeedback = createAsyncThunk('allSlides/getFeedback', async (_, {
 
 
 export const getImageSlide = createAsyncThunk('allSlides/getImageSlide', async (_, { dispatch }) => {
-    const response = await axios.get('http://127.0.0.1:8000/api/imageslide');
-    
+    const response = await axios.get('https://admin.umidmedicalcentre.uz/api/imageslide');
+
     dispatch(setImageSlide(response.data.items))
 })
 

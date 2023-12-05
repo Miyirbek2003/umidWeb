@@ -48,7 +48,6 @@ import Loader from "../../Loader/Loader";
 
 export default function Main() {
   const { t, i18n } = useTranslation();
-  
 
   const dispatch = useDispatch();
 
@@ -289,7 +288,7 @@ export default function Main() {
                 key={item.id}
                 className="main-inner"
                 style={{
-                  backgroundImage: `url(http://127.0.0.1:8000/images/${item.image})`,
+                  backgroundImage: `url(https://admin.umidmedicalcentre.uz/images/${item.image})`,
                 }}
               >
                 <h3>
@@ -328,7 +327,7 @@ export default function Main() {
                 <div key={item.id} className="service-card" data-aos="fade-up">
                   <div className="img">
                     <img
-                      src={`http://127.0.0.1:8000/images/${item.image}`}
+                      src={`https://admin.umidmedicalcentre.uz/images/${item.image}`}
                       alt=""
                     />
                   </div>
@@ -470,7 +469,7 @@ export default function Main() {
                 <SwiperSlide key={item.id}>
                   <div className="img">
                     <img
-                      src={`http://127.0.0.1:8000/images/${item.image}`}
+                      src={`https://admin.umidmedicalcentre.uz/images/${item.image}`}
                       alt=""
                     />
                   </div>
@@ -572,7 +571,7 @@ export default function Main() {
                 <SwiperSlide key={item.id}>
                   <div className="img">
                     <img
-                      src={`http://localhost:8000/images/${item.image}`}
+                      src={`https://admin.umidmedicalcentre.uz/images/${item.image}`}
                       alt=""
                     />
                   </div>
@@ -614,13 +613,13 @@ export default function Main() {
                     itemOne={
                       <ReactCompareSliderImage
                         alt="Image one"
-                        src={`http://localhost:8000/images/${item.do}`}
+                        src={`https://admin.umidmedicalcentre.uz/images/${item.do}`}
                       />
                     }
                     itemTwo={
                       <ReactCompareSliderImage
                         alt="Image two"
-                        src={`http://localhost:8000/images/${item.posle}`}
+                        src={`https://admin.umidmedicalcentre.uz/images/${item.posle}`}
                       />
                     }
                     keyboardIncrement="5%"
