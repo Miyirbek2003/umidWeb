@@ -12,11 +12,14 @@ export default function Modal({ setIsModal, treatment_id }) {
     if (name && phone && treatment_id) {
       const btn = document.querySelector("#submitbtn");
       btn.disabled = true;
-      const response = await axios.post("http://127.0.0.1:8000/api/order", {
-        name: name,
-        phone: phone,
-        treatment_id: treatment_id,
-      });
+      const response = await axios.post(
+        "https://admin.umidmedicalcentre.uz/api/order",
+        {
+          name: name,
+          phone: phone,
+          treatment_id: treatment_id,
+        }
+      );
       setIsModal(false);
     }
   }

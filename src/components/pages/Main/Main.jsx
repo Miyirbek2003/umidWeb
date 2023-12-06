@@ -37,6 +37,7 @@ import LightGallery from "lightgallery/react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getCategory,
+  getContent,
   getFeedback,
   getImageSlide,
   getSlides,
