@@ -7,7 +7,12 @@ import {
   getContent,
   getTypeCategory,
 } from "../../../store/AllSlice";
+
+import uzb from "../../../assets/img/uzb.svg";
+import rus from "../../../assets/img/rus.svg";
 import logo from "../../../assets/img/logo.png";
+import i18n from "../../../i18next";
+import { useTranslation } from "react-i18next";
 export default function About() {
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -55,6 +60,7 @@ export default function About() {
       element.classList.remove("close");
     }
   }
+  const { t, i18n } = useTranslation();
 
   // Call the function when the page loads and when the window is resized
   window.onload = addActiveClass;
@@ -139,6 +145,46 @@ export default function About() {
           }}
         >
           <div className="header">
+            <div className="hdr">
+              <NavLink to={"/"}>
+                {" "}
+                <i className="bx bxs-chevron-left arrow"></i>
+                {localStorage.getItem("i18nextLng") == "ru"
+                  ? "Верьнутся на сайт"
+                  : "Saytka qaytish"}
+              </NavLink>
+              <li className="item-link drop">
+                <div className="active-lang">
+                  {localStorage.getItem("i18nextLng") == "uz" ? (
+                    <>
+                      <span>O'zb</span> <img src={uzb} alt="" />
+                    </>
+                  ) : (
+                    <>
+                      <span>Рус</span> <img src={rus} alt="" />
+                    </>
+                  )}
+                </div>
+                <ul className="drop-ul">
+                  <li
+                    onClick={() => {
+                      i18n.changeLanguage("uz"),
+                        localStorage.setItem("i18nextLng", "uz");
+                    }}
+                  >
+                    <span>O'zb</span> <img src={uzb} alt="" />
+                  </li>
+                  <li
+                    onClick={() => {
+                      localStorage.setItem("i18nextLng", "ru");
+                      i18n.changeLanguage("ru");
+                    }}
+                  >
+                    <span>Рус</span> <img src={rus} alt="" />
+                  </li>
+                </ul>
+              </li>
+            </div>
             <h1 align="center">
               {
                 content?.translations?.filter(

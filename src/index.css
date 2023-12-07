@@ -291,7 +291,7 @@ main>.main {
 
 .service-card li {
   list-style-type: circle;
-
+  white-space: nowrap;
   margin-left: 15px;
   line-height: 140%;
   text-align: left;
@@ -1473,7 +1473,7 @@ tr {
   pointer-events: none;
   transition: 0s;
 }
-
+/* 
 .sidebar.close .nav-links li:hover .sub-menu {
   top: 50%;
   transform: translate(0, -50%);
@@ -1483,7 +1483,7 @@ tr {
   transition: all 0.4s ease;
   border: none !important;
   margin-left: 0 !important;
-}
+} */
 
 .sidebar.close .sub-menu li {
   border: none !important;
@@ -1633,10 +1633,28 @@ tr {
 
 
 
-.page_about ol {
+.page_about ol, .page_about ul {
   margin-left: 10px !important;
 }
 
 .page_about .header h1 {
   margin: 10px 0 !important;
+}
+
+
+
+
+.page_about .item-link{
+  padding: 15px !important;
+  width: max-content;
+}
+
+
+.hdr{
+  display: flex;
+  align-items: center;
+}
+
+.hdr a{
+  color: #1d1b31;
 }
