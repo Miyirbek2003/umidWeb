@@ -18,7 +18,6 @@ export const getCategory = createAsyncThunk('allSlides/getCategory', async (_, {
 
 export const getTypeCategory = createAsyncThunk('allSlides/getTypeCategory', async (_, { dispatch }) => {
     const response = await axios.get('https://admin.umidmedicalcentre.uz/api/typetreatments');
-
     dispatch(setTypeCategory(response.data.items))
 })
 
