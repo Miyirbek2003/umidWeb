@@ -9,17 +9,19 @@ export default function Modal({ setIsModal, treatment_id }) {
   async function onPost(e) {
     e.preventDefault();
 
-    if (name && phone && treatment_id) {
+    if ((name && phone) || treatment_id) {
       const btn = document.querySelector("#submitbtn");
       btn.disabled = true;
-      const response = await axios.post(
-        "https://admin.umidmedicalcentre.uz/api/order",
-        {
+
+      axios
+        .post("https://admin.umidmedicalcentre.uz/api/order", {
           name: name,
           phone: phone,
           treatment_id: treatment_id,
-        }
-      );
+        })
+        .then(function (response) {})
+        .catch(function (error) {});
+
       setIsModal(false);
     }
   }
@@ -36,7 +38,7 @@ export default function Modal({ setIsModal, treatment_id }) {
         <div className="modal-title">
           <h3>{t("order2")}</h3>
           <p>{t("info")}</p>
-          <form onSubmit={onPost}>
+          <form onSubmit={onPost} method="POST">
             <div>
               <span>
                 {" "}
@@ -64,12 +66,7 @@ export default function Modal({ setIsModal, treatment_id }) {
                 required
               />
             </div>
-            <div className="check">
-              <input type="checkbox" name="agree" id="agree" required />
-              <label htmlFor="agree">
-                <span className="reded">*</span> {t("agree")}
-              </label>
-            </div>
+
             <button type="submit" id="submitbtn" className="order2">
               {t("send")}
             </button>

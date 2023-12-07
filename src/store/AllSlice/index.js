@@ -13,7 +13,7 @@ export const getWorkers = createAsyncThunk('allSlides/getWorkers', async (_, { d
 
 export const getCategory = createAsyncThunk('allSlides/getCategory', async (_, { dispatch }) => {
     const response = await axios.get('https://admin.umidmedicalcentre.uz/api/treatments');
-    dispatch(setCategory(response.data))
+    dispatch(setCategory(response.data.items))
 })
 
 export const getTypeCategory = createAsyncThunk('allSlides/getTypeCategory', async (_, { dispatch }) => {

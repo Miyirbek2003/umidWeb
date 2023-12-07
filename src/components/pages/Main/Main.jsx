@@ -19,7 +19,7 @@ import ser1 from "../../../assets/img/ser1.jpg";
 import { FcNext } from "react-icons/fc";
 import { FaCheck } from "react-icons/fa6";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import ser2 from "../../../assets/img/ser2.jpg";
 import bg from "../../../assets/img/bg.jpg";
 import dok from "../../../assets/img/dok.jpg";
@@ -51,7 +51,7 @@ export default function Main() {
   const { t, i18n } = useTranslation();
 
   const dispatch = useDispatch();
-
+  const { id } = useParams();
   React.useEffect(() => {
     dispatch(getSlides());
     dispatch(getWorkers());
@@ -59,7 +59,16 @@ export default function Main() {
     dispatch(getTypeCategory());
     dispatch(getFeedback());
     dispatch(getImageSlide());
+    if (!id) {
+      document.documentElement.style.height = "auto";
+      document.body.style.height = "auto";
+    }
+    if (id) {
+      document.documentElement.style.height = "100%";
+      document.body.style.height = "100%";
+    }
   }, []);
+
   const {
     slides,
     feedback,
@@ -306,6 +315,15 @@ export default function Main() {
                     )[0]?.description
                   }
                 </p>
+                <button
+                  className="order2"
+                  onClick={() => {
+                    setIsModal(true);
+                    setTreatment_id("");
+                  }}
+                >
+                  Записаться на прием
+                </button>
               </SwiperSlide>
             ))}
 
@@ -324,65 +342,70 @@ export default function Main() {
               <p>{t("servicedesc")}</p>
             </div>
             <div className="service-cards">
-              {category?.map((item) => (
-                <div key={item.id} className="service-card" data-aos="fade-up">
-                  <div className="img">
-                    <img
-                      src={`https://admin.umidmedicalcentre.uz/images/${item.image}`}
-                      alt=""
-                    />
-                  </div>
-                  <div className="service-inner">
-                    <h4>
-                      {
-                        item?.translations?.filter(
-                          (lg) =>
-                            lg.locale == localStorage.getItem("i18nextLng")
-                        )[0]?.title
-                      }
-                    </h4>
-                    <ul>
-                      {typeCategory?.map(
-                        (typee) =>
-                          typee.treatment_id == item.id && (
-                            <li
-                              key={typee.id}
-                              onClick={() =>
-                                navigate(
-                                  `/about/${
-                                    typee?.translations?.filter(
-                                      (lg) =>
-                                        lg.locale ==
-                                        localStorage.getItem("i18nextLng")
-                                    )[0]?.slug
-                                  }`
-                                )
-                              }
-                            >
-                              {
-                                typee?.translations?.filter(
-                                  (lg) =>
-                                    lg.locale ==
-                                    localStorage.getItem("i18nextLng")
-                                )[0]?.title
-                              }
+              {category &&
+                category?.map((item) => (
+                  <div
+                    key={item.id}
+                    className="service-card"
+                    data-aos="fade-up"
+                  >
+                    <div className="img">
+                      <img
+                        src={`https://admin.umidmedicalcentre.uz/images/${item.image}`}
+                        alt=""
+                      />
+                    </div>
+                    <div className="service-inner">
+                      <h4>
+                        {
+                          item?.translations?.filter(
+                            (lg) =>
+                              lg.locale == localStorage.getItem("i18nextLng")
+                          )[0]?.title
+                        }
+                      </h4>
+                      <ul>
+                        {typeCategory?.map(
+                          (typee) =>
+                            typee.treatment_id == item.id && (
+                              <li
+                                key={typee.id}
+                                onClick={() =>
+                                  navigate(
+                                    `/about/${
+                                      typee?.translations?.filter(
+                                        (lg) =>
+                                          lg.locale ==
+                                          localStorage.getItem("i18nextLng")
+                                      )[0]?.slug
+                                    }`
+                                  )
+                                }
+                              >
+                                {
+                                  typee?.translations?.filter(
+                                    (lg) =>
+                                      lg.locale ==
+                                      localStorage.getItem("i18nextLng")
+                                  )[0]?.title
+                                }
 
-                              <FcNext size={15} />
-                            </li>
-                          )
-                      )}
-                    </ul>
-                    <button
-                      className="order2"
-                      onClick={() => {
-                        setTreatment_id(item.id), setIsModal(true);
-                      }}
-                    >
-                      {t("order2")}
-                    </button>
+                                <FcNext size={15} color="rgba(47,47,47,0.7)" />
+                              </li>
+                            )
+                        )}
+                      </ul>
+                      <button
+                        className="order2"
+                        onClick={() => {
+                          setTreatment_id(item.id), setIsModal(true);
+                        }}
+                      >
+                        {t("order2")}
+                      </button>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
             </div>
           </div>
         </section>
@@ -421,8 +444,69 @@ export default function Main() {
           <div className="container">
             <div className="info-content">
               <h2>{t("aboutTitle")}</h2>
-              <p>{t("aboutp")}</p>
-              <button className="order2">{t("order")}</button>
+              <p>
+                {localStorage.getItem("i18nextLng") == "ru" ? (
+                  <>
+                    Приходите на прием Добро пожаловать в мир заботы о вашей
+                    улыбке, где стоматология становится искусством, а каждая
+                    посещение нашей клиники – шагом к идеальному здоровью вашего
+                    устного полотна. Мы верим, что красивая улыбка – это не
+                    просто результат профессиональной работы, но и отражение
+                    заботы о вашем общем благополучии.
+                    <br />
+                    Наши стоматологи – это не просто врачи, но и настоящие
+                    художники, создающие шедевры в мире стоматологии. Мы
+                    стремимся к совершенству в каждом случае, предоставляя
+                    индивидуальный подход к каждому пациенту. Мы понимаем, что
+                    улыбка – это ваша визитная карточка, и наша миссия – сделать
+                    ее яркой, здоровой и привлекательной. Выбрав нас, вы
+                    выбираете заботу о своем здоровье, качество и
+                    профессионализм.
+                    <br />
+                    <br />
+                    Мы приглашаем вас стать частью нашей стоматологической
+                    семьи, где каждый посетитель – это уникальная история
+                    успеха. Доверьте свою улыбку профессионалам – мы создаем не
+                    просто слайдер, мы создаем историю красивых улыбок, начиная
+                    с вашей! Присоединяйтесь к нам и дарите миру свою самую
+                    яркую улыбку!
+                  </>
+                ) : (
+                  <>
+                    Sizning tabassumingizga g'amxo'rlik qilish dunyosiga xush
+                    kelibsiz, bu erda stomatologiya san'atga aylanadi va
+                    klinikamizga har bir tashrif og'iz bo'shlig'ingiz
+                    to'qimalarining ideal salomatligiga qadamdir. <br /> <br />{" "}
+                    Biz ishonamizki, chiroyli tabassum nafaqat professional
+                    ishning natijasi, balki sizning umumiy farovonligingiz uchun
+                    g'amxo'rlikning aksidir. Bizning stomatologlarimiz nafaqat
+                    shifokorlar, balki stomatologiya olamida durdona asarlar
+                    yaratadigan haqiqiy rassomlardir. Biz har bir bemorga
+                    individual yondashuvni ta'minlab, har bir holatda
+                    mukammallikka intilamiz. Sizning tabassumingiz sizning
+                    tashrif kartangiz ekanligini tushunamiz va bizning vazifamiz
+                    uni yorqin, sog'lom va jozibali qilishdir. Bizni tanlash
+                    orqali siz o'z salomatligingiz, sifatingiz va
+                    professionalligingiz uchun g'amxo'rlikni tanlaysiz. Biz
+                    sizni stomatologik oilamizning bir qismi bo'lishga taklif
+                    qilamiz, bu erda har bir tashrif buyuruvchi noyob
+                    muvaffaqiyat tarixidir. <br />
+                    <br /> O'z tabassumingizni professionallarga ishoning - biz
+                    shunchaki slayderni emas, siznikidan boshlab chiroyli
+                    tabassumlar tarixini yaratamiz! Bizga qo'shiling va dunyoga
+                    eng yorqin tabassumingizni bering!
+                  </>
+                )}
+              </p>
+              <button
+                className="order2"
+                onClick={() => {
+                  setIsModal(true);
+                  setTreatment_id("");
+                }}
+              >
+                {t("order")}
+              </button>
             </div>
             <div className="img">
               <img src={ser2} alt="" />
@@ -538,7 +622,15 @@ export default function Main() {
                   <div className="con-body">
                     <p>{t("consult")}</p>
                     <h4>Алиева Мария</h4>
-                    <button className="order2">{t("order3")}</button>
+                    <button
+                      className="order2"
+                      onClick={() => {
+                        setIsModal(true);
+                        setTreatment_id("");
+                      }}
+                    >
+                      {t("order3")}
+                    </button>
                   </div>
                 </div>
               </div>
