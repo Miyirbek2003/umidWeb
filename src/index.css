@@ -1333,7 +1333,7 @@ tr {
 }
 
 .sidebar.close {
-  width: 78px;
+  width: 66px;
 }
 
 .sidebar .logo-details {
@@ -1463,7 +1463,7 @@ tr {
 
 .sidebar.close .nav-links li .sub-menu {
   position: absolute;
-  left: 74%;
+  left: 100%;
   top: -10px;
   margin-top: 0;
   padding: 10px 20px;
@@ -1619,9 +1619,7 @@ tr {
 }
 
 @media (max-width: 420px) {
-  .sidebar.close .nav-links li .sub-menu {
-    display: none;
-  }
+  
 }
 
 
@@ -1630,4 +1628,15 @@ tr {
   font-weight: 500;
   opacity: 1;
   font-size: 16px;
+}
+
+
+
+
+.page_about ol {
+  margin-left: 10px !important;
+}
+
+.page_about .header h1 {
+  margin: 10px 0 !important;
 }

@@ -64,7 +64,15 @@ export default function About() {
     <>
       <section className="page_about">
         <div className="sidebar">
-          <div className="logo-details">
+          <div
+            className="logo-details"
+            onClick={() => {
+              if (window.innerWidth <= 700) {
+                const element = document.querySelector(".sidebar");
+                element.classList.toggle("close");
+              }
+            }}
+          >
             <img src={logo} alt="" />
           </div>
           <ul className="nav-links">
@@ -78,11 +86,14 @@ export default function About() {
                   onClick={(e) => {
                     let arrow = document.querySelectorAll(".arrow");
                     let nav_item = document.querySelectorAll(".nav_item");
-                    nav_item.forEach((item) => {
-                      item.classList.remove("showMenu");
-                    });
+
                     let arrowParent = e.target.parentElement.parentElement; //selecting main parent of arrow
                     arrowParent.classList.toggle("showMenu");
+                    if (window.innerWidth <= 700) {
+                      const element = document.querySelector(".sidebar");
+                      element.classList.remove("close");
+                    }
+                    e.stopPropagation();
                   }}
                 >
                   <div className="iocn-link">
@@ -92,30 +103,41 @@ export default function About() {
                     </NavLink>
                     <i className="bx bxs-chevron-down arrow"></i>
                   </div>
-
-                  {typeCategory?.map(
-                    (typee) =>
-                      typee.treatment_id == item.id && (
-                        <ul
-                          className={`sub-menu ${
-                            typee.slug == id ? "showMenu" : ""
-                          }`}
-                          key={typee.id}
-                        >
-                          <li className={typee.slug == id ? "active" : ""}>
+                  <ul className={`sub-menu`}>
+                    {typeCategory?.map(
+                      (typee) =>
+                        typee.treatment_id == item.id && (
+                          <li
+                            key={typee.id}
+                            onClick={() => {
+                              if (window.innerWidth <= 700) {
+                                const element =
+                                  document.querySelector(".sidebar");
+                                element.classList.add("close");
+                              }
+                            }}
+                            className={typee.slug == id ? "active" : ""}
+                          >
                             <NavLink to={`/about/${typee.slug}`}>
                               {typee.title}
                             </NavLink>
                           </li>
-                        </ul>
-                      )
-                  )}
+                        )
+                    )}
+                  </ul>
                 </li>
               ))}
           </ul>
         </div>
 
-        <main>
+        <main
+          onClick={() => {
+            if (window.innerWidth <= 700) {
+              const element = document.querySelector(".sidebar");
+              element.classList.add("close");
+            }
+          }}
+        >
           <div className="header">
             <h1 align="center">
               {
