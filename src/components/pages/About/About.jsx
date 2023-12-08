@@ -20,6 +20,7 @@ export default function About() {
     dispatch(getContent(id));
     dispatch(getCategory());
     dispatch(getTypeCategory());
+    window.scrollTo(0, 0);
   }, [id]);
   const { content, category, typeCategory } = useSelector(
     (state) => state.AllSlice
@@ -55,32 +56,216 @@ export default function About() {
     const element = document.querySelector(".sidebar");
 
     if (window.innerWidth <= 700) {
-      element.classList.add("close");
+      element?.classList.add("close");
     } else {
-      element.classList.remove("close");
+      element?.classList.remove("close");
     }
   }
-  const { t, i18n } = useTranslation();
 
+  function scrollId(item, id) {
+    const item_links = document.querySelectorAll(".item-link");
+    const itemm = document.getElementById(`${id}`);
+    window.scrollTo(0, itemm.offsetTop - 65);
+    item_links.forEach((it) => it.classList.remove("active"));
+    item.classList.add("active");
+    document.querySelector(".nav-links").classList.remove("active");
+    document.querySelector("#nav-icon4").classList.remove("open");
+  }
+  const { t, i18n } = useTranslation();
   // Call the function when the page loads and when the window is resized
   window.onload = addActiveClass;
   window.addEventListener("resize", addActiveClass);
   const navigate = useNavigate();
   return (
     <>
+      <header id="header">
+        <div className="container">
+          <div className="header-inner">
+            <div className="logo" onClick={() => navigate("/")}>
+              <img src={logo} alt="" />
+              <div>
+                <h1>Umid Medical Centre</h1>
+                <p>{t("stom")}</p>
+              </div>
+            </div>
+            <ul className="nav-links">
+              <li
+                className="item-link main"
+                onClick={(e) => {
+                  navigate("/");
+                  setTimeout(() => {
+                    scrollId(e.target, "main");
+                  }, 1500);
+                }}
+              >
+                {" "}
+                {t("home")}
+              </li>
+
+              <li
+                className="item-link services"
+                onClick={(e) => {
+                  navigate("/");
+                  setTimeout(() => {
+                    scrollId(e.target, "services");
+                  }, 1500);
+                }}
+              >
+                {t("service")}
+              </li>
+
+              <li
+                className="item-link goal"
+                onClick={(e) => {
+                  navigate("/");
+                  setTimeout(() => {
+                    scrollId(e.target, "goal");
+                  }, 1500);
+                }}
+              >
+                {t("adventage")}
+              </li>
+
+              <li
+                className="item-link info"
+                onClick={(e) => {
+                  navigate("/");
+                  setTimeout(() => {
+                    scrollId(e.target, "info");
+                  }, 1500);
+                }}
+              >
+                {t("about")}
+              </li>
+
+              <li
+                className="item-link workers"
+                onClick={(e) => {
+                  navigate("/");
+                  setTimeout(() => {
+                    scrollId(e.target, "workers");
+                  }, 1500);
+                }}
+              >
+                {t("workers")}
+              </li>
+
+              <li
+                className="item-link faq"
+                onClick={(e) => {
+                  navigate("/");
+                  setTimeout(() => {
+                    scrollId(e.target, "faq");
+                  }, 1500);
+                }}
+              >
+                {t("faq")}
+              </li>
+
+              <li
+                className="item-link feedbacks"
+                onClick={(e) => {
+                  navigate("/");
+                  setTimeout(() => {
+                    scrollId(e.target, "feedbacks");
+                  }, 1500);
+                }}
+              >
+                {t("feed")}
+              </li>
+              <li
+                className="item-link projects"
+                onClick={(e) => {
+                  navigate("/");
+                  setTimeout(() => {
+                    scrollId(e.target, "projects");
+                  }, 1500);
+                }}
+              >
+                {t("projects")}
+              </li>
+              <li
+                className="item-link gallery"
+                onClick={(e) => {
+                  navigate("/");
+                  setTimeout(() => {
+                    scrollId(e.target, "gallery");
+                  }, 1500);
+                }}
+              >
+                {t("sertificate")}
+              </li>
+              <li
+                className="item-link contact"
+                onClick={(e) => {
+                  navigate("/");
+                  setTimeout(() => {
+                    scrollId(e.target, "contact");
+                  }, 1500);
+                }}
+              >
+                {t("contact")}
+              </li>
+              <li className="item-link drop">
+                <div className="active-lang">
+                  {localStorage.getItem("i18nextLng") == "uz" ? (
+                    <>
+                      <span>O'zb</span> <img src={uzb} alt="" />
+                    </>
+                  ) : (
+                    <>
+                      <span>Рус</span> <img src={rus} alt="" />
+                    </>
+                  )}
+                </div>
+                <ul className="drop-ul">
+                  <li
+                    onClick={() => {
+                      i18n.changeLanguage("uz"),
+                        localStorage.setItem("i18nextLng", "uz");
+                    }}
+                  >
+                    <span>O'zb</span> <img src={uzb} alt="" />
+                  </li>
+                  <li
+                    onClick={() => {
+                      localStorage.setItem("i18nextLng", "ru");
+                      i18n.changeLanguage("ru");
+                    }}
+                  >
+                    <span>Рус</span> <img src={rus} alt="" />
+                  </li>
+                </ul>
+              </li>
+            </ul>
+            <div
+              id="nav-icon4"
+              onClick={(e) => {
+                $("#nav-icon4").toggleClass("open");
+                $(".nav-links").toggleClass("active");
+              }}
+            >
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+        </div>
+      </header>
+
       <section className="page_about">
-        <div className="sidebar">
-          <div
+        <div className={`sidebar ${window.innerWidth <= 700 ? "close" : ""} `}>
+          {/* <div
             className="logo-details"
             onClick={() => {
               if (window.innerWidth <= 700) {
                 const element = document.querySelector(".sidebar");
-                element.classList.toggle("close");
+                element?.classList.toggle("close");
               }
             }}
           >
             <img src={logo} alt="" />
-          </div>
+          </div> */}
           <ul className="nav-links">
             {category &&
               category?.map((item) => (
@@ -144,54 +329,21 @@ export default function About() {
             }
           }}
         >
-          <div className="header">
-            <div className="hdr">
-              <NavLink to={"/"}>
-                {" "}
-                <i className="bx bxs-chevron-left arrow"></i>
-                {localStorage.getItem("i18nextLng") == "ru"
-                  ? "Верьнутся на сайт"
-                  : "Saytka qaytish"}
-              </NavLink>
-              <li className="item-link drop">
-                <div className="active-lang">
-                  {localStorage.getItem("i18nextLng") == "uz" ? (
-                    <>
-                      <span>O'zb</span> <img src={uzb} alt="" />
-                    </>
-                  ) : (
-                    <>
-                      <span>Рус</span> <img src={rus} alt="" />
-                    </>
-                  )}
+          {" "}
+          <div className="container">
+            <div className="header-btm">
+              <div className="logo">
+                <img src={logo} alt="" />
+                <div>
+                  <h1>Umid Medical Centre</h1>
+                  <p>{t("stom")}</p>
                 </div>
-                <ul className="drop-ul">
-                  <li
-                    onClick={() => {
-                      i18n.changeLanguage("uz"),
-                        localStorage.setItem("i18nextLng", "uz");
-                    }}
-                  >
-                    <span>O'zb</span> <img src={uzb} alt="" />
-                  </li>
-                  <li
-                    onClick={() => {
-                      localStorage.setItem("i18nextLng", "ru");
-                      i18n.changeLanguage("ru");
-                    }}
-                  >
-                    <span>Рус</span> <img src={rus} alt="" />
-                  </li>
-                </ul>
-              </li>
+              </div>
+              <div className="header-contact">
+                <span>+998 95 604 00 60</span>
+                <button className="order">{t("order")}</button>
+              </div>
             </div>
-            <h1 align="center">
-              {
-                content?.translations?.filter(
-                  (lg) => lg.locale == localStorage.getItem("i18nextLng")
-                )[0].title
-              }
-            </h1>
           </div>
           <div
             dangerouslySetInnerHTML={createMarkup()}

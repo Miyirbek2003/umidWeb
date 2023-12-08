@@ -124,6 +124,7 @@ header {
   border: 1px solid #09a485;
   background-color: transparent;
   transition: all 0.2s;
+  font-weight: 500;
 }
 
 .order:hover {
@@ -155,7 +156,7 @@ header {
 }
 
 main>.main {
-  height: 90vh;
+  height: 70vh;
   width: 100%;
   background-position: center;
   display: flex;
@@ -200,19 +201,42 @@ main>.main {
   max-width: 100%;
   width: 100%;
   gap: 15px;
+  padding: 15px;
   z-index: 1;
+}
+
+.services .swiper-slide img {
+  object-fit: cover !important;
 }
 
 .main .swiper-slide h3 {
   font-size: 50px;
   color: white;
   z-index: 3;
+  text-align: left;
 }
 
+main.main .swiper-button-prev:after,
+main.main .swiper-button-next:after {
+  display: none !important;
+}
+
+.workers .swiper-slide {
+  box-shadow: 0 10px 15px 0 rgba(50, 41, 92, 0.05) !important;
+
+}
+
+.feedback .swiper-slide {
+  box-shadow: none;
+}
+
+
 .main .swiper-slide p {
-  color: white;
+  color: rgba(255, 255, 255, 0.9);
   font-size: 18px;
   z-index: 3;
+  text-align: left;
+
 }
 
 .main .order2 {
@@ -230,13 +254,28 @@ main>.main {
   flex-direction: column;
   gap: 10px;
   width: 100%;
-  box-shadow: 0 0 7px rgba(47, 47, 47, 0.1);
+  box-shadow: 0 10px 15px 0 rgba(50, 41, 92, 0.02) !important;
   padding: 25px;
-  border-radius: 7px;
+  border-radius: 5px;
+}
+
+p {
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
 .section-title {
   margin-bottom: 30px;
+}
+
+
+.logo h1 {
+  font-size: 30px;
+}
+
+.logo p {
+  color: rgba(47, 47, 47, 0.7);
+
 }
 
 .section-title h3,
@@ -258,7 +297,7 @@ main>.main {
   position: relative;
   overflow: hidden;
   height: 200px;
-  border-radius: 10px;
+  border-radius: 5px;
 }
 
 .img img {
@@ -276,17 +315,37 @@ main>.main {
 .service-card h4 {
   font-size: 25px;
   margin: 10px 0 !important;
+  text-align: left;
+}
+
+.services .swiper-slide {
+  justify-content: space-between;
 }
 
 .service-card {
   position: relative;
+  height: initial;
+
+}
+
+.service-inner {
+  width: 100%;
+  flex: 4;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.services .img {
+  min-height: 200px;
+  flex: 2;
 }
 
 .service-card ul {
   list-style: disc;
   padding-bottom: 25px !important;
-  border-bottom: 1px solid #ddd;
-  max-width: 70%;
+  
+  max-width: 100%;
 }
 
 .service-card li {
@@ -302,7 +361,7 @@ main>.main {
   gap: 7px;
   cursor: pointer;
   color: rgba(47, 47, 47, 0.7);
-  font-size: 18px;
+  font-size: 15px;
 
 }
 
@@ -545,8 +604,15 @@ main>.goal {
   line-height: 25px;
   letter-spacing: 1px;
   max-width: 90%;
+  margin-bottom: 25px !important;
 }
 
+.swiper-button-prev:after,
+.swiper-rtl .swiper-button-next:after,
+.swiper-button-next:after,
+.swiper-rtl .swiper-button-prev:after {
+  font-size: 25px;
+}
 
 .info-content h2 {
   font-size: 40px;
@@ -677,7 +743,15 @@ main>.goal {
 
 .feedback .content .texxt {
   padding: 20px 15px;
-  font-weight: 500;
+  font-weight: 400;
+  max-width: 70%;
+  margin: 0 auto !important;
+  color: black !important;
+}
+
+.feedback .content p {
+  color: rgba(0, 0, 0, 0.5);
+  margin-bottom: 10px !important;
 }
 
 .content h4 {
@@ -886,6 +960,7 @@ footer {
 .item-link {
   display: flex;
   align-items: center;
+  white-space: nowrap;
 }
 
 .contacts .section-title p {
@@ -909,11 +984,59 @@ footer {
   justify-content: center;
 }
 
-@media screen and (max-width:1018px) {
+@media screen and (max-width:1164px) {
+  .header-inner ul {
+    gap: 5px;
+  }
+
+  .header-btm h1 {
+    font-size: 25px;
+  }
+
+  .header-contact span {
+    font-size: 18px;
+  }
+}
+
+@media screen and (max-width:1090px) {
+  .header-inner ul {
+    gap: 0px;
+  }
+
+  .header-btm h1 {
+    font-size: 25px;
+  }
+
+  .header-contact span {
+    font-size: 18px;
+  }
+
+  .header-contact {
+    display: flex;
+    gap: 0px;
+    flex-direction: column-reverse;
+  }
+}
+
+@media screen and (max-width:1030px) {
   .goal .container {
     flex-wrap: wrap;
     justify-content: center;
     gap: 30px;
+  }
+
+  .header-inner ul {
+    display: flex;
+    gap: 0px;
+  }
+
+  .header-inner li {
+    cursor: pointer;
+    font-weight: 500;
+    padding: 7px 5px;
+    background-color: transparent;
+    transition: all 0.3s;
+    position: relative;
   }
 }
 
@@ -981,7 +1104,7 @@ footer {
   display: none;
 }
 
-@media screen and (max-width:861px) {
+@media screen and (max-width:954px) {
   #nav-icon4 {
     display: block;
   }
@@ -1039,6 +1162,10 @@ footer {
   .nav-links.active {
     display: block !important;
   }
+
+  .sidebar {
+    top: 90px !important;
+  }
 }
 
 @media screen and (max-width:700px) {
@@ -1056,10 +1183,26 @@ footer {
   }
 }
 
+b,
+strong {
+  font-weight: 500 !important;
+}
 
 @media screen and (max-width:580px) {
   .works-cards {
     flex-direction: column;
+  }
+
+  .main .order2 {
+    padding: 9px;
+    color: white;
+    background-color: #09a485;
+    border: none;
+    border-radius: 7px;
+    font-size: 15px;
+    max-width: 185px;
+    width: 100%;
+    transition: background-color 0.2s;
   }
 
   .service-cards {
@@ -1213,6 +1356,7 @@ footer {
 .page_about main {
   flex: 4;
   padding-left: 260px;
+  padding-top: 20px;
 }
 
 .side-bar {
@@ -1332,10 +1476,10 @@ tr {
 
 .sidebar {
   position: fixed;
-  top: 0;
+  top: 68px;
   height: 100%;
   left: 0;
-
+  
   width: 260px;
   background: #11101d;
   z-index: 100;
@@ -1642,7 +1786,13 @@ h6 {
   font-weight: 600;
 }
 
-@media (max-width: 420px) {}
+@media (max-width: 640px) {
+
+  .swiper-button-prev:after,
+  .swiper-button-next:after {
+    display: none !important;
+  }
+}
 
 
 .sidebar .nav-links li.active a {
@@ -1666,10 +1816,10 @@ h6 {
 
 
 
-
 .page_about .item-link {
   padding: 15px !important;
   width: max-content;
+
 }
 
 
@@ -1680,4 +1830,9 @@ h6 {
 
 .hdr a {
   color: #1d1b31;
+}
+
+
+.drop:hover .drop-ul {
+  margin-left: 0 !important;
 }

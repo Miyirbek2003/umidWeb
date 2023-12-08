@@ -341,14 +341,40 @@ export default function Main() {
               <h3>{t("servicetitle")}</h3>
               <p>{t("servicedesc")}</p>
             </div>
-            <div className="service-cards">
+            <Swiper
+              slidesPerView={3}
+              spaceBetween={20}
+              navigation={true}
+              loop={true}
+              breakpoints={{
+                100: {
+                  slidesPerView: 1,
+                  spaceBetween: 20,
+                },
+                400: {
+                  slidesPerView: 1,
+                  spaceBetween: 20,
+                  navigation: false,
+                },
+                640: {
+                  slidesPerView: 2,
+                  spaceBetween: 20,
+                },
+                916: {
+                  slidesPerView: 3,
+                  spaceBetween: 40,
+                },
+                1024: {
+                  slidesPerView: 3,
+                  spaceBetween: 50,
+                },
+              }}
+              modules={[Pagination, Navigation]}
+              className="mySwiper"
+            >
               {category &&
                 category?.map((item) => (
-                  <div
-                    key={item.id}
-                    className="service-card"
-                    data-aos="fade-up"
-                  >
+                  <SwiperSlide key={item.id} className="service-card">
                     <div className="img">
                       <img
                         src={`https://admin.umidmedicalcentre.uz/images/${item.image}`}
@@ -356,45 +382,50 @@ export default function Main() {
                       />
                     </div>
                     <div className="service-inner">
-                      <h4>
-                        {
-                          item?.translations?.filter(
-                            (lg) =>
-                              lg.locale == localStorage.getItem("i18nextLng")
-                          )[0]?.title
-                        }
-                      </h4>
-                      <ul>
-                        {typeCategory?.map(
-                          (typee) =>
-                            typee.treatment_id == item.id && (
-                              <li
-                                key={typee.id}
-                                onClick={() =>
-                                  navigate(
-                                    `/about/${
-                                      typee?.translations?.filter(
-                                        (lg) =>
-                                          lg.locale ==
-                                          localStorage.getItem("i18nextLng")
-                                      )[0]?.slug
-                                    }`
-                                  )
-                                }
-                              >
-                                {
-                                  typee?.translations?.filter(
-                                    (lg) =>
-                                      lg.locale ==
-                                      localStorage.getItem("i18nextLng")
-                                  )[0]?.title
-                                }
+                      <div>
+                        <h4>
+                          {
+                            item?.translations?.filter(
+                              (lg) =>
+                                lg.locale == localStorage.getItem("i18nextLng")
+                            )[0]?.title
+                          }
+                        </h4>
+                        <ul>
+                          {typeCategory?.map(
+                            (typee) =>
+                              typee.treatment_id == item.id && (
+                                <li
+                                  key={typee.id}
+                                  onClick={() =>
+                                    navigate(
+                                      `/about/${
+                                        typee?.translations?.filter(
+                                          (lg) =>
+                                            lg.locale ==
+                                            localStorage.getItem("i18nextLng")
+                                        )[0]?.slug
+                                      }`
+                                    )
+                                  }
+                                >
+                                  {
+                                    typee?.translations?.filter(
+                                      (lg) =>
+                                        lg.locale ==
+                                        localStorage.getItem("i18nextLng")
+                                    )[0]?.title
+                                  }
 
-                                <FcNext size={15} color="rgba(47,47,47,0.7)" />
-                              </li>
-                            )
-                        )}
-                      </ul>
+                                  <FcNext
+                                    size={13}
+                                    color="rgba(47,47,47,0.7)"
+                                  />
+                                </li>
+                              )
+                          )}
+                        </ul>
+                      </div>
                       <button
                         className="order2"
                         onClick={() => {
@@ -404,9 +435,10 @@ export default function Main() {
                         {t("order2")}
                       </button>
                     </div>
-                  </div>
+                  </SwiperSlide>
                 ))}
-            </div>
+            </Swiper>
+            <div className="service-cards"></div>
           </div>
         </section>
         <section className="goal" id="goal">
@@ -655,7 +687,7 @@ export default function Main() {
                   spaceBetween: 20,
                 },
                 500: {
-                  slidesPerView: 1,
+                  slidesPerView: 2,
                   spaceBetween: 20,
                 },
               }}
