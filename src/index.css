@@ -344,7 +344,7 @@ p {
 .service-card ul {
   list-style: disc;
   padding-bottom: 25px !important;
-  
+
   max-width: 100%;
 }
 
@@ -790,12 +790,20 @@ main>.goal {
 }
 
 .works-cards {
-  display: flex;
-  gap: 25px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
 }
 
 .work {
   position: relative;
+  min-height: 230px;
+  max-height: 230px;
+  height: 100%;
+}
+
+.work>div:first-child {
+  height: 100% !important;
 }
 
 .point {
@@ -896,7 +904,15 @@ main>.goal {
 .contacts .left {
   border-right: 1px solid #ddd;
   padding-right: 15px;
+  flex: 1;
+}
 
+.contacts input {
+  padding: 7px 10px;
+}
+
+.contacts .right {
+  flex: 1;
 }
 
 .contacts form div {
@@ -969,6 +985,7 @@ footer {
 
 .contacts .left {
   border: 0;
+  flex: 1;
 }
 
 
@@ -1066,6 +1083,11 @@ footer {
     position: static;
     max-width: 100%;
     height: 200px;
+  }
+
+  .works-cards {
+    grid-template-columns: 1fr;
+    gap: 20px
   }
 
   .info-content {
@@ -1479,7 +1501,7 @@ tr {
   top: 68px;
   height: 100%;
   left: 0;
-  
+
   width: 260px;
   background: #11101d;
   z-index: 100;

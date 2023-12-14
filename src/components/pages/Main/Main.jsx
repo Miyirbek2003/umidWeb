@@ -46,6 +46,7 @@ import {
 } from "../../../store/AllSlice";
 import { useTranslation } from "react-i18next";
 import Loader from "../../Loader/Loader";
+import axios from "axios";
 
 export default function Main() {
   const { t, i18n } = useTranslation();
@@ -59,13 +60,9 @@ export default function Main() {
     dispatch(getTypeCategory());
     dispatch(getFeedback());
     dispatch(getImageSlide());
-    if (!id) {
+    if (id) {
       document.documentElement.style.height = "auto";
       document.body.style.height = "auto";
-    }
-    if (id) {
-      document.documentElement.style.height = "100%";
-      document.body.style.height = "100%";
     }
   }, []);
 
@@ -103,7 +100,26 @@ export default function Main() {
   const [isOpen, setIsopen] = React.useState(false);
   const [treatment_id, setTreatment_id] = React.useState("");
   const navigate = useNavigate();
+  const [name, setName] = React.useState("");
+  const [phone, setPhone] = React.useState("");
 
+  async function onPost(e) {
+    e.preventDefault();
+
+    if ((name && phone) || treatment_id) {
+      const btn = document.querySelector("#submitbtn");
+      btn.disabled = true;
+
+      axios
+        .post("https://admin.umidmedicalcentre.uz/api/order", {
+          name: name,
+          phone: phone,
+          treatment_id: treatment_id,
+        })
+        .then(function (response) {})
+        .catch(function (error) {});
+    }
+  }
   if (loading) {
     return <Loader />;
   }
@@ -271,7 +287,15 @@ export default function Main() {
           </div>
           <div className="header-contact">
             <span>+998 95 604 00 60</span>
-            <button className="order">{t("order")}</button>
+            <button
+              className="order"
+              onClick={() => {
+                setTreatment_id("");
+                setIsModal(true);
+              }}
+            >
+              {t("order")}
+            </button>
           </div>
         </div>
       </div>
@@ -318,8 +342,8 @@ export default function Main() {
                 <button
                   className="order2"
                   onClick={() => {
-                    setIsModal(true);
                     setTreatment_id("");
+                    setIsModal(true);
                   }}
                 >
                   Записаться на прием
@@ -354,7 +378,6 @@ export default function Main() {
                 400: {
                   slidesPerView: 1,
                   spaceBetween: 20,
-                  navigation: false,
                 },
                 640: {
                   slidesPerView: 2,
@@ -448,8 +471,17 @@ export default function Main() {
                 <FaCheck fontSize={30} color="white" />
               </span>
               <div>
-                <h3>12 345</h3>
-                <p>{t("clients")}</p>
+                <h3>
+                  {" "}
+                  {localStorage.getItem("i18nextLng") == "ru"
+                    ? "Счастливые клиенты"
+                    : "Baxtli mijozlar"}{" "}
+                </h3>
+                <p>
+                  {localStorage.getItem("i18nextLng") == "ru"
+                    ? "Более 1200 клиентов"
+                    : "1200 dan ortiq mijozlar"}
+                </p>
               </div>
             </div>
             <div data-aos="flip-up">
@@ -457,8 +489,17 @@ export default function Main() {
                 <FaCheck color="white" fontSize={30} />
               </span>
               <div>
-                <h3>Цели продвижения</h3>
-                <p>Предложим пути продвижения бизнеса</p>
+                <h3>
+                  {" "}
+                  {localStorage.getItem("i18nextLng") == "ru"
+                    ? "Доверяйте ваше здоровье нам"
+                    : "Sog`lig`ingizni bizga ishoning"}{" "}
+                </h3>
+                <p>
+                  {localStorage.getItem("i18nextLng") == "ru"
+                    ? "Здоровия это главное"
+                    : "Sog'liq eng ahamiyatlisi"}
+                </p>
               </div>
             </div>
             <div data-aos="flip-up">
@@ -466,8 +507,17 @@ export default function Main() {
                 <FaCheck color="white" fontSize={30} />
               </span>
               <div>
-                <h3>Рекламная акция</h3>
-                <p>Начнем проведение рекламный кампаний</p>
+                <h3>
+                  {" "}
+                  {localStorage.getItem("i18nextLng") == "ru"
+                    ? "Опытные стомотологи"
+                    : "Tajriybaliy stomotologlar"}{" "}
+                </h3>
+                <p>
+                  {localStorage.getItem("i18nextLng") == "ru"
+                    ? "Более 100 стомотологов"
+                    : "100 dan ortiq stomotologlar"}
+                </p>
               </div>
             </div>
           </div>
@@ -817,27 +867,33 @@ export default function Main() {
                 <div className="modal-title">
                   <h3>{t("order2")}</h3>
                   <p>{t("soon")}</p>
-                  <form>
+                  <form onSubmit={onPost} method="POST">
                     <div>
                       <span>
                         <span className="reded">*</span> Имя
                       </span>
-                      <input type="text" />
+                      <input
+                        name="name"
+                        onChange={(e) => setName(e.target.value)}
+                        type="text"
+                        required
+                      />
                     </div>
                     <div>
                       <span>
                         <span className="reded">*</span> Телефон
                       </span>
-                      <input type="number" />
+                      <input
+                        type="number"
+                        name="phone"
+                        onChange={(e) => setPhone(e.target.value)}
+                        required
+                      />
                     </div>
-                    <div className="check">
-                      <input type="checkbox" name="agree" id="agree" />
-                      <label htmlFor="agree">
-                        <span className="reded">*</span> Я согласен на обработку
-                        моих персональных данных
-                      </label>
-                    </div>
-                    <button className="order2">Отправить</button>
+
+                    <button type="submit" id="submitbtn" className="order2">
+                      Отправить
+                    </button>
                   </form>
                 </div>
               </div>

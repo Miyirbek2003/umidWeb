@@ -13,6 +13,7 @@ import rus from "../../../assets/img/rus.svg";
 import logo from "../../../assets/img/logo.png";
 import i18n from "../../../i18next";
 import { useTranslation } from "react-i18next";
+import Modal from "../../Modal/Modal";
 export default function About() {
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -44,14 +45,7 @@ export default function About() {
     item.classList.add("table");
     item.classList.add("table-bordered");
   });
-  if (window.location.href != "/") {
-    document.documentElement.style.height = "100%";
-    document.body.style.height = "100%";
-  }
-  if (window.location.href == "/") {
-    document.documentElement.style.height = "100%";
-    document.body.style.height = "100%";
-  }
+
   function addActiveClass() {
     const element = document.querySelector(".sidebar");
 
@@ -76,8 +70,11 @@ export default function About() {
   window.onload = addActiveClass;
   window.addEventListener("resize", addActiveClass);
   const navigate = useNavigate();
+  const [isModal, setIsModal] = React.useState(false);
+
   return (
     <>
+      {isModal && <Modal setIsModal={setIsModal} />}
       <header id="header">
         <div className="container">
           <div className="header-inner">
@@ -290,7 +287,14 @@ export default function About() {
                   <div className="iocn-link">
                     <NavLink>
                       <i className="bx bx-collection"></i>
-                      <span className="link_name">{item.title}</span>
+                      <span className="link_name">
+                        {
+                          item?.translations?.filter(
+                            (lg) =>
+                              lg.locale == localStorage.getItem("i18nextLng")
+                          )[0]?.title
+                        }
+                      </span>
                     </NavLink>
                     <i className="bx bxs-chevron-down arrow"></i>
                   </div>
@@ -310,7 +314,13 @@ export default function About() {
                             className={typee.slug == id ? "active" : ""}
                           >
                             <NavLink to={`/about/${typee.slug}`}>
-                              {typee.title}
+                              {
+                                typee?.translations?.filter(
+                                  (lg) =>
+                                    lg.locale ==
+                                    localStorage.getItem("i18nextLng")
+                                )[0]?.title
+                              }
                             </NavLink>
                           </li>
                         )
@@ -341,7 +351,9 @@ export default function About() {
               </div>
               <div className="header-contact">
                 <span>+998 95 604 00 60</span>
-                <button className="order">{t("order")}</button>
+                <button className="order" onClick={() => setIsModal(true)}>
+                  {t("order")}
+                </button>
               </div>
             </div>
           </div>
